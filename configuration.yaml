@@ -1,0 +1,478 @@
+# https://home-assistant.io/addons
+# https://github.com/hassio-addons/repository
+# https://github.com/danielwelch/hassio-addons
+# https://github.com/PrimusNZ/hassio-addons
+# https://github.com/danielwelch/hassio-zigbee2mqtt
+
+homeassistant:
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 127.0.0.1
+        - 192.168.86.0/24
+    - type: legacy_api_password
+
+#   Name of the location where Home Assistant is running
+  name: Home
+#   Location required to calculate the time the sun rises and sets
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+#   Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 4
+#   metric for Metric, imperial for Imperial
+  unit_system: metric
+#   Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Pacific/Auckland
+
+  packages: !include_dir_named packages
+  
+#lovelace:
+#  mode: yaml
+
+
+#  customize_domain:
+#    automation:
+#      hidden: false
+#    script:
+#      hidden: true  
+   # packages:
+    # pack_1: !include packages/external_ip.yaml
+    # pack_2: !include packages/package_iphone.yaml
+    # pack_3: !include packages/package_vacuum.yaml
+    # pack_4: !include packages/package_presence.yaml
+  # customize: !include inc_customize.yaml
+
+  # packages: !include_dir_named packages  
+
+
+
+# automation: !include_dir_merge_list automation/    
+automation: !include inc_automations.yaml
+automation old: !include_dir_merge_list automations
+      
+# script: !include_dir_named scripts
+script: !include_dir_merge_list scripts/
+
+system_health:
+
+# Enables the frontend
+frontend:
+  javascript_version: latest
+  #https://www.reddit.com/r/homeassistant/comments/8dnxf0/easy_instructions_for_a_custom_weather_card/
+#  extra_html_url:
+#    - /local/custom_ui/custom-weather-card.html
+#  extra_html_url_es5:
+#    - /local/custom_ui/custom-weather-card.html  
+
+    
+# Enables configuration UI
+config:
+hassio:
+
+alarm_control_panel: !include inc_alarm.yaml
+panel_custom: !include inc_alarm_panel.yaml
+
+timer:
+  zigbee_permit_join:
+    name: Time remaining
+    duration: 600 # Updated this to the number of seconds you wish
+
+custom_updater:
+  track:
+    - components
+    # - python_scripts
+  component_urls:
+    - https://raw.githubusercontent.com/gcobb321/icloud3/master/custom_component_updater_config.txt
+#    - https://raw.githubusercontent.com/pnbruckner/homeassistant-config/master/custom_components.json
+  # python_script_urls:
+    # - https://raw.githubusercontent.com/pnbruckner/homeassistant-config/master/python_scripts.json
+    
+
+panel_iframe:
+  portainer:
+    title: 'Portainer'
+    icon: mdi:router-wireless
+    url: !secret url_port
+
+  influxdb:
+    title: 'InfluxDB'
+    icon: mdi:router-wireless
+    url: !secret url_influx
+
+  pihole:
+    title: 'Pi-hole'
+    icon: mdi:router-wireless
+    url: !secret url_pihole
+
+  logviewer:
+    title: 'Log Viewer'
+    icon: mdi:router-wireless
+    url: !secret url_logview
+
+  webterminal:
+    title: 'Web Terminal'
+    icon: mdi:router-wireless
+    url: !secret url_term
+    
+  tasmoadmin:
+    title: 'TasmoAdmin'
+    icon: mdi:router-wireless
+    url: !secret url_tasmoadmin
+
+  configurator:
+    title: 'Config'
+    icon: mdi:router-wireless
+    url: !secret url_haconfig      
+
+http:
+  api_password: !secret http_password
+  ip_ban_enabled: true
+  login_attempts_threshold: 9
+  cors_allowed_origins:
+    - https://google.com
+    - https://home-assistant.io
+#  use_x_forwarded_for: true
+#  trusted_proxies:
+#    - 127.0.0.1
+#    - 192.168.178.5    
+
+zone: !include inc_zones.yaml
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  include_used_components: true
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+#  ignore:
+#  - igd
+#  enable:
+#    - google_cast
+#    - yeelight
+#    - xiaomi_gw
+
+ios:
+
+input_text:
+  intercom_message:
+    name: Intercom Message
+    initial: ''
+  broadcast_message:
+    name: Broadcast Message
+    initial: ''
+  google_command:
+    name: Google command
+    initial: ''
+  alarm_status:  
+    name: Alaram Status
+  
+# Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+  include:
+    domains:
+    - alarm_control_panel
+    - automation 
+    - input_boolean -
+    - remote 
+    - script
+    - binary_sensor
+    - climate
+    - cover
+    - device_tracker
+    - fan
+    - light
+    - lock
+    - media_player
+    - sensor
+    - switch
+      
+# google_keep:
+  # username: !secret g_user
+  # password: !secret g_pass
+  # list_name: "Shopping List"      
+      
+logger: !include inc_logger.yaml
+
+cloud: !include inc_google_cloud.yaml
+
+recorder:
+  purge_interval: 2
+  purge_keep_days: 30
+  db_url: !secret hass_db
+
+# Enables a map showing the location of tracked devices
+map:
+
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+
+# Track the sun
+sun:
+
+# 60 seconds to leave the building before triggering the alarm, and 30 seconds to disarm the alarm when coming back.
+#alarm_control_panel:
+#  - platform: manual
+#    name: Security  
+    # Wait before arming
+#    pending_time : 60
+
+#    # Wait before alarming
+#    delay_time: 30
+#    trigger_time: 4
+#    disarm_after_trigger: false
+#    disarmed:
+#      trigger_time: 0
+#    armed_home:
+#      pending_time: 0
+#      delay_time: 0
+
+
+mqtt:
+#  host: localhost
+  discovery: true
+  discovery_prefix: homeassistant
+  broker: 192.168.86.2
+  port: 1883
+  client_id: HASS
+  username: !secret mqtt_user
+  password: !secret mqtt_password
+  protocol: 3.1.1
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'  
+
+    
+google:
+  client_id: !secret g_cal_id
+  client_secret: !secret g_cal_secret
+
+sensor: !include_dir_merge_list sensors/
+
+binary_sensor: !include inc_binary_sensors.yaml
+
+      
+#cover: !include_dir_list covers
+cover:
+  - platform: template
+    covers:
+      garage_door:
+        friendly_name: "Garage Door"
+        value_template: >
+          {% if is_state('binary_sensor.door_window_sensor_158d000112fb09', 'on') %}
+            open
+          {% else %}
+            closed
+          {% endif %}
+        open_cover:
+          - service: mqtt.publish
+            data:
+              topic: 'home/garage/door'
+              payload: 'on'
+        close_cover:
+          - service: mqtt.publish
+            data:
+              topic: 'home/garage/door'
+              payload: 'on'
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d000112fb09', 'on') %}
+            mdi:garage-open
+          {% else %}
+            mdi:garage
+          {% endif %}          
+    
+switch: !include_dir_merge_list switches/
+
+# Text to speech
+tts:
+  - platform: google
+
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: "0xCD, 0x78, 0xAD, 0x19, 0x55, 0x38, 0x55, 0x61, 0x21, 0x23, 0x2F, 0xC2, 0xD5, 0x44, 0x5A, 0x50"
+  debug: true
+#  device_config: !include inc_zwave_device_config.yaml
+  # network_key: "0xCD,0x78,0xAD,0x19,0x55,0x38,0x55,0x61,0x21,0x23,0x2F,0xC2,0xD5,0x44,0x5A,0x50"
+#  network_key: !secret zwave_key
+#  new_entity_ids: true
+  # autoheal: true
+
+  
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - mac: !secret xiaomi1_gw_mac
+      key: !secret xiaomi1_gw_key
+    - mac: !secret xiaomi2_gw_mac
+      key: !secret xiaomi2_gw_key      
+#      host: !secret xiaomi_gw_host
+
+    
+notify: !include inc_notify.yaml
+
+twilio:
+  account_sid: !secret twilio_sid
+  auth_token: !secret twilio_token
+    
+camera: !include inc_cameras.yaml
+
+# image_processing:
+  # - platform: sighthound
+    # api_key: !secret sighthound_api
+    # mode: dev
+    # state_display: vehicle
+    # scan_interval: 10000
+    # source:
+      # - entity_id: camera.driveway
+
+vacuum:
+  platform: xiaomi_miio
+  name: Xiaomi
+  host: 192.168.86.130
+  token: !secret vac_token
+  
+device_tracker: !include inc_device_trackers.yaml
+
+
+lifx:
+light: !include inc_lights.yaml
+
+input_boolean: !include inc_input_booleans.yaml
+
+input_number:
+  kitchen1_animation_speed:
+    name: Kitchen1 Animation Speed
+    initial: 150
+    min: 1
+    max: 150
+    step: 10    
+    
+  kitchen2_animation_speed:
+    name: Kitchen2 Animation Speed
+    initial: 150
+    min: 1
+    max: 150
+    step: 10 
+
+input_select:
+  vacuum_room:
+    name: Choose a room to clean
+    options:
+      - Select Input
+      - Living Areas
+      - Dining, Kitchen & Laundry
+      - Lounge
+      - Dining Room
+      - Kitchen
+      - End Rooms
+      - Main Bathroom
+      - Main Bedroom
+      - Ensuite Bathroom
+      - Hallway
+      - Hall
+      - Laundry
+    initial: Select Input
+  alarm_status:
+    name: Alarm Status
+    options:
+      - Disarmed
+      - Armed Away (Day)
+      - Armed Away (Night)
+      - Armed Home
+      - Triggered
+    
+  josh_status_dropdown:
+    name: Josh
+    options:
+      - Home
+      - Almost Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+    
+  kay_status_dropdown:
+    name: Kay
+    options:
+      - Home
+      - Almost Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+
+ 
+media_player:
+  - platform: spotify
+    client_id: !secret spotify_id
+    client_secret: !secret spotify_secret
+    aliases:
+      Kit: 'Kitchen'
+media_extractor:
+
+speedtestdotnet:
+
+# googlehome:
+  # devices:
+    # - host: 192.168.86.30
+    # - host: 192.168.86.31
+    # - host: 192.168.86.32
+      # track_alarms: true
+    # - host: 192.168.86.33
+      # track_alarms: true
+    # - host: 192.168.86.34
+    # - host: 192.168.86.35
+      # track_alarms: true
+    # - host: 192.168.86.36
+    # - host: 192.168.86.37
+    # - host: 192.168.86.38
+    # - host: 192.168.86.39
+    # - host: 192.168.86.40
+
+
+# Enables python scripts in <config>/python_scripts
+python_script:
+
+group: !include inc_groups.yaml
+      
+shell_command:
+  backup: 'sudo /config/bash-scripts/backup.sh'
+  msgjosh: !secret whatsapp_msgjosh
+  msgkay: !secret whatsapp_msgkay
+  msgmum: !secret whatsapp_msgmum
+  msgseb: !secret whatsapp_msgseb
+  msgstacey: !secret whatsapp_msgstacey
+  msggrp: !secret whatsapp_msggrp
+  dnsupdate: !secret shell_dnsupdate
+  mornwake: python /config/bash-scripts/morning.py
+
+#  sendsmskay: !secret sendsmskay
+  newmemoryverse: python /config/bash-scripts/MemoryVerse.py
+  cast: /config/bash-scripts/cast.sh {{cmd}}
+
+rest_command:
+  cam_record_start:
+    url: !secret blue_iris_start
+    method: GET
+
+  cam_record_stop:
+    url: !secret blue_iris_stop
+    method: GET
+    

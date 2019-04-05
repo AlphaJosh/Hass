@@ -1,0 +1,70 @@
+
+  - alias: Send Shopping List - PaknSave - Kay
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.kaysiphone6s
+        zone: zone.Riccarton_Mall
+        event: enter
+        # for:
+          # hours: 1
+          # minutes: 10
+    action:          
+      - service: notify.fb
+        data:
+          message: 'Please check the shopping list: https://shoppinglist.google.com/u/0/lists/11735563576276186380?pli=1'
+          target:
+            # - '+64273589003'
+            - '+64273589005'          
+        
+  - alias: Send Shopping List - PaknSave - Josh
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.joshiphone
+        zone: zone.Riccarton_Mall
+        event: enter
+        # for:
+  #        hours: 1
+          # minutes: 10 
+    action:          
+      - service: notify.fb
+        data:
+          message: 'Please check the shopping list: https://shoppinglist.google.com/u/0/lists/11735563576276186380?pli=1'
+          target:
+            - '+64273589003'
+            # - '+64273589005'          
+        
+
+  - alias: Send Shopping List - Barrington - Kay
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.kaysiphone6s
+        zone: zone.Barrington_Mall
+        event: enter
+        # for:
+  #        hours: 1
+          # minutes: 10 
+    action:          
+      - service: notify.fb
+        data:
+          message: 'Please check the shopping list: https://shoppinglist.google.com/u/0/lists/11735563576276186380?pli=1'
+          target:
+            # - '+64273589003'
+            - '+64273589005'          
+        
+  - alias: Send Shopping List - Barrington - Josh
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.joshiphone
+        zone: zone.Barrington_Mall
+        event: enter
+        # for:
+  #        hours: 1
+          # minutes: 10 
+    action:          
+      - service: notify.fb
+        data:
+          message: 'Please check the shopping list: https://shoppinglist.google.com/u/0/lists/11735563576276186380?pli=1'
+          target:
+            - '+64273589003'
+            # - '+64273589005'          
+                    

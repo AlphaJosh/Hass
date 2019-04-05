@@ -1,0 +1,664 @@
+#########################################################
+# Morning Rituals
+  - alias: MORNING - 6:30 - Turn on morning lights 6:20am
+    trigger:
+      platform: time
+      at: '06:30:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: light.turn_on
+      entity_id: light.bedroom
+      data:
+        brightness: 30
+        transition: 3
+        color_name: green
+    - service: light.turn_on
+      entity_id: 
+        - light.bathroom
+        - light.toilet
+      data:
+        brightness: 255
+        transition: 18
+    - service: light.turn_off
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+
+    - service: light.turn_on
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+    - service: light.turn_off
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+    - service: light.turn_on
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+    - service: light.turn_off
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+
+    - service: light.turn_on
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+    - service: light.turn_off
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+
+    - service: light.turn_on
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+      data:
+        brightness: 200
+        transition: 18        
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.bedroom_2
+        volume_level: '0.4'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.bathroom
+        volume_level: '0.6'        
+    - delay: '00:00:03'
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.bedroom_2
+        message: >
+          Good morning. The time is {{(now().strftime('%I')|int) }} {{ now().minute }}. It's currently {{states.sensor.dark_sky_summary.state}} and {{states.sensor.dark_sky_temperature.state|round}} degrees. Today will be {{states.sensor.dark_sky_hourly_summary.state|replace(".", "")}}, with a high of {{states.sensor.dark_sky_daily_high_temperature.state|round}} and a low of {{states.sensor.dark_sky_daily_low_temperature.state|round}}.
+
+
+          
+# Heating
+  - alias: MORNING - 6:45 Heating On
+    trigger:
+      platform: time
+      at: '06:45:00'         
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+#      - condition: numeric_state
+#        entity_id: 'sensor.temperature_158d00010fc34d'
+#        below: '22'     
+      - condition: time   
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri     
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.heatpump
+       
+  - alias: MORNING - 6:40 Jarvis Quotes
+    trigger:
+      platform: time
+      at: '06:40:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.5'    
+      - delay: '00:00:03'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.bedroom_2
+          message: >
+            {{ states('sensor.quotes') }}
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.bedroom_2
+          message: >
+            It is now 6 25. Josh time to get up and make breakfast, now is your chance to achieve
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.9'            
+
+          
+  - alias: MORNING - 6:45 Jarvis Wakeup
+    trigger:
+      platform: time
+      at: '06:45:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom
+        data:
+          brightness: 80
+          transition: 6
+          color_name: white
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.6'
+      # Say quote
+      - delay: '00:00:03'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.bedroom_2
+          message: >
+            Good morning. The time is 6 fifty a m. You need to be up now. It's currently {{states.sensor.dark_sky_summary.state}} and {{states.sensor.dark_sky_temperature.state|round}} degrees. Today will be {{states.sensor.dark_sky_hourly_summary.state|replace(".", "")}}, with a high of {{states.sensor.dark_sky_daily_high_temperature.state|round}} and a low of {{states.sensor.dark_sky_daily_low_temperature.state|round}}. 
+
+
+
+  - alias: MORNING - auto4 - Turn on Elisha morning lights 6:50m
+    trigger:
+      platform: time
+      at: '06:50:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      - service: light.turn_on
+        entity_id: light.elisha
+        data:
+          brightness: 200
+          transition: 6
+          color_name: white
+
+  - alias: MORNING - 7:00 Jarvis Wakeup
+    trigger:
+      platform: time
+      at: '07:00:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.bedroom_2
+        message: >
+          Good morning. The time is 7 o clock. You need to be up now. Take action. The day is yours and his mercies are new every morning.
+ 
+  - alias: MORNING - 7:15 Bedroom Light Up
+    trigger:
+      platform: time
+      at: '07:15:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom
+        data:
+          brightness: 255
+          transition: 6
+          color_name: white
+
+  - alias: MORNING - 7:30 Start TV Countdown 30Min
+    trigger:
+      platform: time
+      at: '07:30:00' 
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time   
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri       
+    action: 
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.lounge
+          volume_level: '0.9'      
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.lounge
+          message: >
+            Good morning. The time is 7 30. Joshua has 30 minutes to be fully showered and ready.
+      - service: mqtt.publish
+        data_template:
+          payload: "{\"msg\":\"https://www.youtube.com/watch?v=Xk24DMOInnQ\"}"
+          topic: home/castTV
+          retain: false
+      - delay: '00:31:00'
+      - service: media_player.turn_off
+        entity_id: media_player.tv_2
+        
+     
+
+  - alias: MORNING - 7:40 Jarvis Breakfast is over
+    trigger:
+      platform: time
+      at: '07:40:00'         
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time   
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri     
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.6'    
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Good morning. The time is 7 40. Breakfast time is over. Go get ready. You have 20 minutes to be fully ready.
+
+  - alias: MORNING - 7:41 Jarvis Elisha Dressed
+    trigger:
+      platform: time
+      at: '07:41:00'         
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time   
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri     
+    action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'       
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.kitchen
+        message: >
+          Eleesha Time to get dressed, you can play hi pad once you are dressed. Go get dressed now
+#            you can get dressed by the heater if you like.
+
+  - alias: MORNING - 7:45 Heatpump Off
+    trigger:
+      platform: time
+      at: '07:45:00'         
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time   
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri     
+    action:
+    - service: switch.turn_off
+      entity_id: switch.heatpump           
+    - delay: '00:00:02'
+    - service: switch.turn_off
+      entity_id: switch.heatpump           
+
+        
+  - alias: MORNING - 8:10 Jarvis Get Ready To Leave
+    trigger:
+      platform: time
+      at: '08:10:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: '0.9'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'        
+    - delay: '00:00:02'
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          The time is now {{(now().strftime('%I')|int) }} {{ now().minute }}. Time to get ready to go. You have 15 minutes left.
+
+  - alias: MORNING - 8:12 Open Garage Door
+    trigger:
+      platform: time
+      at: '08:12:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: cover.open_cover
+      entity_id: cover.garage_door
+        
+  - alias: MORNING - 8:15 Jarvis Get Ready To Leave
+    trigger:
+      platform: time
+      at: '08:15:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'       
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'        
+    - delay: '00:00:02'    
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          It is {{(now().strftime('%I')|int) }} {{ now().minute }}. You should be just about to go. Dont forget your phone and lunch. Only 10 minutes
+    - service: switch.turn_off
+      entity_id: switch.tv_power
+          
+  - alias: MORNING - 8:20 Jarvis Get Ready To Leave - Chopper
+    trigger:
+      platform: time
+      at: '08:20:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'         
+    - delay: '00:00:02'       
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          It is {{(now().strftime('%I')|int) }} {{ now().minute }}. Get ready to leave now. Dont forget your phone and lunch. Only 5 minutes remaining. 
+#      - service: media_player.play_media
+#        entity_id: media_player.everything_3
+#        data:
+#          media_content_id: http://192.168.86.2:32400/library/parts/1/1496913067/file.mp3?download=1&X-Plex-Token=zwG6po7fYCpJsoQSGVyX
+#          media_content_type: audio/mp3
+          
+  - alias: MORNING - 8:16 Jarvis Get Ready To Leave
+    trigger:
+      platform: time
+      at: '08:16:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'       
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: '0.7'
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.kitchen
+        message: >
+          Eleesha time to get your shoes on. Go get your shoes on now.
+
+
+  - alias: MORNING - 8:25 Jarvis Get Ready To Leave
+    trigger:
+      platform: time
+      at: '08:25:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: switch.turn_off
+      entity_id: switch.heatpump      
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'       
+    - delay: '00:00:02'      
+    - service: media_player.media_play_pause
+      entity_id: media_player.everything_3
+    - service: media_player.turn_on
+      entity_id: media_player.everything_3      
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          The time is now {{(now().strftime('%I')|int) }} {{ now().minute }}. Time to Go! Go! Go!
+
+  - alias: MORNING - 8:27 Jarvis Leave Drop
+    trigger:
+      platform: time
+      at: '08:28:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'       
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          It is now {{(now().strftime('%I')|int) }} {{ now().minute }}. Drop everything and leave Now!
+        
+  - alias: MORNING - 8:30 Jarvis You are Late
+    trigger:
+      platform: time
+      at: '08:30:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'     
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.ensuite
+        volume_level: '0.9'      
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          The time is now {{(now().strftime('%I')|int) }} {{ now().minute }}. You are now running late
+
+  - alias: MORNING - 8:45 Weekday Lights off
+    trigger:
+      platform: time
+      at: '8:45:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'             
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      - service: light.turn_off
+        entity_id: group.all_lights
+      - service: media_player.media_stop
+        entity_id: group.devices
+        
+

@@ -1,0 +1,5 @@
+  - platform: command_line
+    name: Quotes
+    command: "shuf -n 1 /config/quotes.txt"
+    scan_interval: 7200   
+    

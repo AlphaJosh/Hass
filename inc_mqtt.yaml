@@ -1,0 +1,15 @@
+#  host: localhost
+  discovery: true
+  discovery_prefix: homeassistant
+  broker: !secret mqtt_server
+  port: 1883
+  client_id: HASS
+  username: !secret mqtt_user
+  password: !secret mqtt_password
+  protocol: 3.1.1
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'  

@@ -1,0 +1,40 @@
+alias: Alarm Disarm With Alert
+sequence:
+  - service: script.turn_off
+    entity_id: script.alarm_alert_away_backdoor
+  - service: script.turn_off
+    entity_id: script.alarm_alert_away_frontdoor
+  - service: script.turn_off
+    entity_id: script.alarm_alert_away_garage
+  - service: script.turn_off
+    entity_id: script.alarm_alert_away_motion            
+
+  - service: light.turn_off
+    entity_id: light.gateway_light_7c49eb1a791d
+
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '0.6'
+  - delay: '00:00:05'          
+  - service: tts.google_say
+    data_template:
+      entity_id: media_player.kitchen
+      message: >
+        Alarm system disarmed
+  - delay: '00:00:03'          
+  - service: switch.turn_off
+    entity_id: switch.dining_state  
+  - service: switch.turn_off
+    entity_id: switch.lounge_state
+  - service: shell_command.msgjosh
+    data_template:
+      text: "Home Alarm System Disarmed"  
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.house
+  - service: notify.fb
+    data:
+      message: "Home Alarm System Disarmed"  
+      target:
+        - '+64273589003'
+#        - '+64273589005'

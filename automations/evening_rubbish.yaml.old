@@ -1,0 +1,82 @@
+# ALternate week number:  {{ ((now().strftime("%W") | int) % 2) == 0 }}
+
+
+  - alias: Rubbish Bins
+    trigger:
+      platform: time
+      at: '22:01:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.8'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Have you put out the rubbish bins yet. Tonight is {% if (now().isocalendar()[1] | float ).is_integer() %}red{% else %}yellow{% endif %} bin night
+ 
+ 
+  - alias: Jarvis Rubbish Red Bin
+    trigger:
+      platform: time
+      at: '22:01:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+      - condition: template
+        value_template: '{% if (now().isocalendar()[1]/2)|round(0)==(now().isocalendar()[1]/2)%}true{%else%}false{%endif%}'        
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.8'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Have you put out the rubbish bins yet. Tonight is Red Bin night. Put out the Red bin
+ 
+ 
+  - alias: Jarvis Rubbish Yellow Bin
+    trigger:
+      platform: time
+      at: '22:01:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+      - condition: template
+        value_template: '{% if (now().isocalendar()[1]/2)|round(1)==(now().isocalendar()[1]/2)%}true{%else%}false{%endif%}'        
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.8'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Have you put out the rubbish bins yet. Tonight is Yellow Bin night. Put out the Yellow bin
+
+ 

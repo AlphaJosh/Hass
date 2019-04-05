@@ -1,0 +1,5 @@
+- platform: template
+  sensors:
+    alarm_panic_mode:
+      friendly_name: Alarm Panic Mode
+      value_template: "{{ states.alarm_control_panel.house.attributes['panic_mode'] }}"

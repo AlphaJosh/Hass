@@ -1,0 +1,20 @@
+  - alias: Broadcast message
+    trigger:
+      platform: state
+      entity_id: input_text.broadcast_message
+    condition:
+      condition: template
+      value_template: '{{ (states.input_text.broadcast_message.state | length) > 0 }}'
+    action:
+      - service: script.send_broadcast
+
+  - alias: Send Google command
+    trigger:
+      platform: state
+      entity_id: input_text.google_command
+    condition:
+      condition: template
+      value_template: '{{ (states.input_text.google_command.state | length) > 0 }}'
+    action:
+      - service: script.g_command
+      # - service: script.send_google_command    

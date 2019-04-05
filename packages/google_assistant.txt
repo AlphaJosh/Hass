@@ -1,0 +1,24 @@
+notify:
+  - name: Google Assistant Command
+    platform: rest
+    resource: http://192.168.86.2:5000/command?message=google_command
+script:
+  send_google_command:
+    sequence:
+      - service: notify.google_assistant_command
+        data_template:
+          message: '{{ states.input_text.google_command.state }}'
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.google_command
+          value: ''
+automation:
+  - alias: Send Google command
+    trigger:
+      platform: state
+      entity_id: input_text.google_command
+    condition:
+      condition: template
+      value_template: '{{ (states.input_text.google_command.state | length) > 0 }}'
+    action:
+      - service: script.send_google_command

@@ -1,0 +1,7 @@
+  - platform: command_line
+    switches:
+      ipad:
+        command_on: 'bash /config/bash-scripts/forti_ipad_allow.sh'
+        command_off: 'bash /config/bash-scripts/forti_ipad_deny.sh'
+        
+        

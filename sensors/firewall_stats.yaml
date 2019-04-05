@@ -1,0 +1,29 @@
+#Note: Will only work with interaces in root VDOM
+
+  - platform: snmp
+    name: 'Fortigate Memory Usage'
+    host: 10.10.10.2
+    baseoid: 1.3.6.1.4.1.12356.101.4.1.4.0
+    community: !secret snmp_key
+    unit_of_measurement: "%"
+    accept_errors: true
+    version: 2c
+
+  - platform: snmp
+    name: 'Fortigate CPU Usage'
+    host: 10.10.10.2
+    baseoid: 1.3.6.1.4.1.12356.101.4.1.3.0
+    community: !secret snmp_key
+    unit_of_measurement: "%"
+    accept_errors: true
+    version: 2c
+
+  - platform: snmp
+    name: 'Fortigate Current Bandwidth'
+    host: 10.10.10.2
+    baseoid: 1.3.6.1.4.1.12356.101.13.2.1.1.5
+    community: !secret snmp_key
+    unit_of_measurement: "kBit/s"
+    accept_errors: true
+    version: 2c
+

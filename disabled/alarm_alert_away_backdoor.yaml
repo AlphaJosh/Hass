@@ -1,0 +1,51 @@
+alias: Alarm Alert Away Backdoor
+sequence:
+  - delay: '00:00:30'  
+  - service: shell_command.msggrp
+    data_template:
+      text: "Home Alarm Triggered: Back door has been opened"
+  - service: light.turn_on
+    entity_id: light.gateway_light_7c49eb1a791d
+    data:
+      rgb_color: [255, 0, 0] 
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '1.0'        
+  - delay: '00:00:03'        
+  - service: tts.google_say
+    data_template:
+      entity_id: media_player.everything_3
+      message: >
+        The alarm has been triggered and people have been notified. Did you know that you are being videoed right now and uploaded into the cloud
+  - service: media_player.play_media
+    entity_id: media_player.kitchen
+    data:
+      media_content_id: http://192.168.86.2:32400/library/parts/4/1514338372/file.mp3?download=1&X-Plex-Token=Tp1nu1xiC9YBSSq5zdfi
+      media_content_type: audio/mp3
+  - service: light.turn_on
+    entity_id: light.dining
+    data:
+      brightness: 255
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.house
+  - service: notify.emailjosh
+    data:
+      title: 'Intruder alert'
+      message: 'Intruder alert - Back Door!!'
+  - service: mqtt.publish
+    data:
+      topic: 'cmnd/RFBridge/RfKey4'
+      payload: 'ON'
+  - service: notify.fb
+    data:
+      message: 'Intruder alert - Back Door!!'
+      target:
+        - '+64273589003'
+        - '+64273589005'
+  - service: notify.fb
+    data:
+      message: 'Intruder alert - Back Door!!'
+      target:
+        - '+64273589003'
+#          - '+64273589005'

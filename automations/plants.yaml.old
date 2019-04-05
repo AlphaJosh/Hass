@@ -1,0 +1,89 @@
+  - alias: "MORNING - 7:06am - Basil"
+    trigger:
+    - platform: time
+      at: '7:06'
+    condition:
+    - condition: and
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.flower_1_moisture
+        above: 40
+        below: 70
+        # If your sensor value needs to be adjusted
+        # value_template: {{ float(state.state) + 2 }}  
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'off'         
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.kitchen
+        message: The Basil needs watering
+        
+  - alias: "MORNING - 7:06am  - Basil Urgent"
+    trigger:
+    - platform: time
+      at: '7:06'
+    condition:
+    - condition: and
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.flower_1_moisture
+        above: 1
+        below: 40
+        # If your sensor value needs to be adjusted
+        # value_template: {{ float(state.state) + 2 }}  
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'off'     
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.kitchen
+        message: The Basil needs watering urgently
+  
+  ##################################################################################
+        
+  - alias: "MORNING - 7:07am - Flowers"
+    trigger:
+    - platform: time
+      at: '7:07'
+    condition:
+    - condition: and
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.flower_2_moisture
+        above: 40
+        below: 70
+        # If your sensor value needs to be adjusted
+        # value_template: {{ float(state.state) + 2 }}  
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'off'         
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.kitchen
+        message: Flowers need watering
+        
+  - alias: "MORNING - 7:07am  - Flowers Urgent"
+    trigger:
+    - platform: time
+      at: '7:07'
+    condition:
+    - condition: and
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.flower_2_moisture
+        above: 1
+        below: 40
+        # If your sensor value needs to be adjusted
+        # value_template: {{ float(state.state) + 2 }}  
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'off'     
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.kitchen
+        message: Flowers need watering urgently

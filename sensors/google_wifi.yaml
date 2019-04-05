@@ -1,0 +1,30 @@
+- platform: google_wifi
+  host: 192.168.86.17
+  name: Wifi Yard
+  monitored_conditions:
+    - current_version
+    - new_version
+    - uptime
+    - last_restart
+    - status
+
+- platform: google_wifi
+  host: 192.168.86.18
+  name: Wifi Lounge
+  monitored_conditions:
+    - current_version
+    - new_version
+    - uptime
+    - last_restart
+    - status    
+    
+- platform: google_wifi
+  host: 192.168.86.19
+  name: Wifi Office
+  monitored_conditions:
+    - current_version
+    - new_version
+    - uptime
+    - last_restart
+    - status
+    

@@ -1,0 +1,53 @@
+#"Ok Google, sync my devices"
+#cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - alarm_control_panel.house
+        - group.dining_lights
+#        - group.all_lights
+        - input_boolean.stay_at_home
+        - switch.tv_power
+        - automation.iphone_find_josh
+        - cover.garage_door
+        - switch.heatpump
+#        - switch.joshblanket
+#        - switch.kayblanket
+        # - switch.led_fence
+        - script.josh_blanket_on
+        - script.josh_blanket_off
+        - script.kay_blanket_on
+        - script.kay_blanket_off
+        - script.vacuum_start
+        - script.vacuum_stop
+        - script.vacuum_pause
+        - script.vacuum_continue
+        - light.bbq_lights
+        - light.bbq
+        - light.fence
+        - switch.ipad
+        
+        
+#      include_domains:
+#        - switch
+#      exclude_entities:
+#        - switch.outside
+#      exclude_domains:
+#        - group
+#        - light
+#        - input_boolean
+#        - scene
+#        - script
+#        - switch
+#        - fan
+#        - light
+#        - cover
+#        - media_player
+#        - climate
+#    entity_config:
+#      switch.kitchen:
+#        name: Custom Name for Google Assistant
+#        aliases:
+#         - bright lights
+#         - entry lights
+#        room: living room

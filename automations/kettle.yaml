@@ -1,0 +1,10 @@
+    
+          
+  - alias: Kettle On
+    trigger:
+      platform: time
+      at: '6:45:00'        
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.powerkettle    

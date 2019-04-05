@@ -1,0 +1,33 @@
+#=======================================================================================
+
+  - alias: Alert - Opened Front Door
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d0001596697
+        to: 'off'
+        from: 'on'
+    action:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        gw_mac: !secret xiaomi2_gw_mac
+        ringtone_id: 5000
+        ringtone_vol: 9
+    
+
+
+
+#   Door Alerts sensor Garage
+
+  - alias: Alert - Closed Front Door
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d0001596697
+        to: 'on'
+        from: 'off'
+    action:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        gw_mac: !secret xiaomi2_gw_mac
+        ringtone_id: 5001
+        ringtone_vol: 9
+

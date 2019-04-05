@@ -1,0 +1,42 @@
+#=======================================================================================
+#   Door Alerts sensor Garage
+
+  - alias: Dash - Garage Open
+    trigger:
+      - platform: state
+        entity_id: input_boolean.dash_garage
+        to: 'on'
+        from: 'off'
+    condition:
+      - condition: state
+        entity_id:  cover.garage_door
+        state: 'closed'
+    action:
+      # - delay: '00:00:30'
+      - service: cover.open_cover
+        entity_id: cover.garage_door
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.dash_garage        
+
+
+#   Door Alerts sensor Garage
+
+  - alias: Dash - Garage Close
+    trigger:
+      - platform: state
+        entity_id: input_boolean.dash_garage
+        to: 'on'
+        from: 'off'
+    condition:
+      - condition: state
+        entity_id:  cover.garage_door
+        state: 'open'
+    action:
+      - delay: '00:00:30'
+      - service: cover.close_cover
+        entity_id:  cover.garage_door
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.dash_garage
+

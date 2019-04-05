@@ -1,0 +1,33 @@
+#=======================================================================================
+
+  - alias: Alert - Internet Down
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.internet_connection
+        to: 'on'
+        from: 'off'
+    action:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        gw_mac: !secret xiaomi2_gw_mac
+        ringtone_id: 5013
+        ringtone_vol: 100
+    
+
+
+
+#   Door Alerts sensor Garage
+
+  - alias: Alert - Internet Up
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.internet_connection
+        to: 'off'
+        from: 'on'
+    action:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        gw_mac: !secret xiaomi2_gw_mac
+        ringtone_id: 5014
+        ringtone_vol: 100
+

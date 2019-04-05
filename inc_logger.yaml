@@ -1,0 +1,52 @@
+default: error
+logs:
+  homeassistant.components.http.ban: warning
+  persistent_notification.http_login: warning
+  homeassistant.components.http: warning
+  homeassistant.components.logger: info
+#  requests.packages.urllib3.connectionpool: warn
+  # homeassistant.components.automation: debug
+#  homeassistant.components.switch: info
+  # homeassistant.components.script: debug
+  # homeassistant.components.vacuum.xiaomi_miio: debug
+  # mirobo.device: critical
+#  homeassistant.components.media_player: debug
+#  homeassistant.components.device_tracker.actiontec: warn
+#  homeassistant.components.sensor: info
+  # homeassistant.components.mqtt: debug
+#  homeassistant.components.device_tracker.mqtt: debug
+  # homeassistant.components.lifx: debug
+#  homeassistant.components.group: error
+#  homeassistant.components.updater: info
+  # homeassistant.components.recorder: debug
+#  homeassistant.components.device_tracker: info
+#  homeassistant.components.zone: info
+#  homeassistant.components.http: info
+#  homeassistant.components.shell_command: debug
+  # homeassistant.components.xiaomi: debug
+  # homeassistant.components.xiaomi_aqara: debug
+  # homeassistant.custom_components.xiaomi: debug
+  # homeassistant.components.sensor.mitemp_bt: notset
+  # homeassistant.components.snmp: debug
+#  homeassistant.components.scene: info
+  # homeassistant.components.media_player.spotify: debug
+#  homeassistant.components.camera: info
+#  homeassistant.components.frontend: debug
+#  homeassistant.components.api: info
+#  homeassistant.components.websocket_api: debug
+  # homeassistant.components.light: debug
+ # homeassistant.components.zwave: debug
+#  homeassistant.components.discovery: debug
+#  homeassistant.components.ifttt: info
+#  homeassistant.components.history: info
+#  homeassistant.components.logbook: info
+  # homeassistant.components.notify: debug
+#  homeassistant.components.sun: info
+#  homeassistant.components.conversation: info
+#  homeassistant.components.pyicloud: debug
+#  homeassistant.haffmpeg.core: info
+#  homeassistant.yeelight.main: info
+#  homeassistant.pyicloud.services.findmyiphone.http: debug
+#  homeassistant.pyicloud.base: debug
+#  homeassistant.components.zoneminder: debug
+  

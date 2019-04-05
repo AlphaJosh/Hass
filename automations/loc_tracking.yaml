@@ -1,0 +1,138 @@
+
+  - alias: Track Josh Stacey
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.joshsiphone
+        zone: zone.staceys
+        event: enter  # or "leave"
+#        for:
+#          minutes: 7 
+    condition:
+    - condition: time    
+      # At least one of the following is required.
+      after: '14:00:00'
+      before: '18:30:00'        
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri      
+    action: 
+      - service: shell_command.msgkay
+        data_template:
+          text: "Josh is approaching Stacey's"
+
+  - alias: Track Kay Stacey
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.kaysiphone
+        zone: zone.staceys
+        # Event is either enter or leave
+        event: enter  # or "leave"
+#        for:
+#          minutes: 7 
+    condition:
+    - condition: time    
+      # At least one of the following is required.
+      after: '14:00:00'
+      before: '18:30:00'        
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri      
+    action: 
+      - service: shell_command.msgjosh
+        data_template:
+          text: "Kay is approaching Stacey's"
+
+  - alias: Track Josh Left Work
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.joshsiphone
+        zone: zone.josh_left
+        # Event is either enter or leave
+        event: enter
+#        for:
+#          minutes: 7 
+    condition:
+    - condition: time
+      # At least one of the following is required.
+      after: '16:30:00'
+      before: '18:00:00'        
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri      
+    action: 
+      - service: shell_command.msgkay
+        data_template:
+          text: "Josh has left work"
+
+  - alias: Track Kay Left Work
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.kaysiphone
+        zone: zone.kay_left
+        # Event is either enter or leave
+        event: enter
+#        for:
+#          minutes: 7        
+    condition:
+    - condition: time    
+      # At least one of the following is required.
+      after: '16:30:00'
+      before: '18:00:00'        
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri      
+    action: 
+      - service: shell_command.msgjosh
+        data_template:
+          text: "Kay has left work"
+
+  - alias: Track Kay Left HomeGroup
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.kaysiphone
+        zone: zone.homegroup
+        # Event is either enter or leave
+        event: leave
+#        for:
+#          minutes: 7 
+    condition:
+    - condition: time    
+      # At least one of the following is required.
+      after: '20:00:00'
+      before: '23:59:00'        
+      weekday:
+        - wed
+    action: 
+      - service: shell_command.msgjosh
+        data_template:
+          text: "Kay has left Home Group"
+            
+#  - alias: Find Kay's Phone
+#    action: 
+#    - service: device_tracker.icloud_lost_iphone
+#      data:
+#        device_name: kaysiphone  
+
+#  - alias: Find Mum's Phone
+#    action: 
+#    - service: device_tracker.icloud_lost_iphone
+#      data:
+#        device_name: christinesiphone
+          
+#  - alias: Find ipad
+#    action: 
+#    - service: device_tracker.icloud_lost_iphone
+#      data:
+#        device_name: joshsipad           

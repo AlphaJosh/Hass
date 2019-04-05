@@ -1,0 +1,42 @@
+#https://github.com/danielwelch/hassio-gdrive-sync
+
+#https://community.home-assistant.io/t/hass-io-add-on-upload-hassio-snapshots-to-dropbox/43622
+
+  - alias: Backup - Create snapshot at 3 AM
+    trigger:
+      platform: time
+      at: '3:00:00'
+    action:
+    - service: hassio.snapshot_full
+      data_template:
+        name: Automated Backup {{ now().strftime('%Y-%m-%d') }}
+
+
+  - alias: Backup - Upload to dropbox at 5 AM
+    trigger:
+      platform: time
+      at: '5:00:00'
+    action:
+  #  - service: hassio.addon_stdin
+  #    data_template:
+  #      name: {"addon":"7be23ff5_dropbox_sync","input":{"command":"upload"}}
+
+    - service: hassio.addon_stdin 
+      data:
+        addon: "7be23ff5_dropbox_sync"
+        input: {"command":"upload"}
+        
+  # - alias: Backup Backup of Node-RED
+    # trigger:
+      # platform: time
+      # at: '3:00:00'
+    # action:
+    # - service: hassio.snapshot_partial
+      # data_template:
+        # name: "27e642c6_nodered {{ now().strftime('%Y-%m-%d') }}"
+        # addons:
+          # - 27e642c6_nodered
+    # - service: notify.slack_notify
+      # data_template:
+        # message: Creating backup named "27e642c6_nodered {{ now().strftime('%Y-%m-%d') }}"
+        

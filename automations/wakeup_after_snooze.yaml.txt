@@ -1,0 +1,58 @@
+########################################################################################          
+#  - alias: up after wakeup alarm
+#    trigger:
+#      platform: time
+#      after: '7:15:00'
+#    condition:
+#      condition: or
+#      conditions:   
+#      - condition: time    
+#        weekday:
+#        - mon
+##        - tue
+#        - wed
+#        - thu
+#        - fri
+#      - condition: state
+#        entity_id: input_boolean.out_of_bed
+#        state: 'off'
+#    action:
+#     #Turn lights on full
+#      - service: light.turn_on
+#        entity_id: light.bedroom
+#        data:
+#          brightness: 255
+#          transition: 6
+#          color_name: white     
+#     #sound on
+#      - service: media_player.volume_set
+##        data_template:
+# #         entity_id: media_player.kitchen
+#          volume_level: '0.6'
+#      - delay: '00:00:10'         
+##      - service: media_player.play_media
+#        entity_id: media_player.everything
+#        data:
+#          media_content_id: http://192.168.178.10:32400/library/parts/1079/1494395727/file.mp3?download=1&X-Plex-Token=BB2pq8GSdsxBpHzgvEyy
+#          media_content_type: audio/mp3
+
+  - alias: up_after_wakeup_reset
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d000112aaae 
+      to: 'on'
+    condition:
+    - condition: time    
+      # At least one of the following is required.
+      after: '07:00:00'
+      before: '9:00:00'
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.out_of_bed

@@ -1,0 +1,10 @@
+  - alias: Light - Porch switch Toggle  
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000128b12d
+        click_type: double
+    action:
+      service: light.toggle
+      entity_id: light.porch

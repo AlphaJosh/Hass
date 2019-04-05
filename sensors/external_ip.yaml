@@ -1,0 +1,8 @@
+    - platform: dnsip
+      name: external_ip
+      
+    # - platform: rest
+      # resource: http://icanhazip.com
+      # name: external_ip
+      # value_template: '{{ value }}'
+      # scan_interval: 86400          

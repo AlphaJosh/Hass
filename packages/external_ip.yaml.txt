@@ -1,0 +1,45 @@
+homeassistant:
+
+  sensor:
+    # - platform: dnsip
+      # name: external_ip
+    
+    - platform: rest
+      resource: http://icanhazip.com
+      name: external_ip
+      value_template: '{{ value }}'
+      scan_interval: 86400      
+      
+
+# Notify me when I get a new public IP from my ISP
+######################################################
+
+  customize:
+    sensor.external_ip:
+      friendly_name: External IP Address
+  
+
+  automation:
+    # - id: '1525220727899'
+    - alias: Notify Of New External IP
+      trigger:
+        - platform: state
+          entity_id: sensor.external_ip
+      condition:
+        condition: and
+        conditions:
+        - condition: template
+          value_template: "{% if trigger.from_state and trigger.to_state %} true {% else %} false {% endif %}"
+        - condition: template
+          value_template: "{% if trigger.from_state.state == 'unknown' %} false {% else %} true {% endif %}"
+        - condition: template
+          value_template: "{% if trigger.to_state.state == 'unknown' %} false {% else %} true {% endif %}"
+        - condition: template
+          value_template: "{{ trigger.from_state.state != trigger.to_state.state }}"
+      action:
+        - service: notify.fb
+          data_template:
+            message: "Your External IP changed from {{ trigger.from_state.state }} to {{ trigger.to_state.state }}"
+            target:
+              - '+64273589003'            
+          # update 

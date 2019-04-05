@@ -1,0 +1,105 @@
+#################################################################################
+# Sunday Morning 
+  - alias: Josh Worship AM Sequence 5:15am
+    trigger:
+      platform: time
+      at: '05:15:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: time    
+        weekday:
+        - sun
+      - condition: state
+        entity_id: calendar.sun_worship
+        state: 'on'
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.heatpump
+      - service: light.turn_on
+        entity_id: light.bedroom
+        data:
+          brightness: 80
+          transition: 6
+          color_name: blue          
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.3'
+      - service: script.turn_on
+        entity_id: script.Jarvis_700
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.6'
+      - service: light.turn_on
+        entity_id: light.dining
+
+  - alias: Josh Worship AM Sequence 5:30am
+    trigger:
+      platform: time
+      at: '05:30:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: time    
+        weekday:
+        - sun
+      - condition: state
+        entity_id: calendar.sun_worship
+        state: 'on'
+    action:        
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.kitchen
+        message: >
+          The time is now {{ now().strftime("%l:%M") }}. Time to go
+        
+
+  - alias: Josh Worship AM Sequence Already Left
+    trigger:
+      platform: time
+      at: '06:05:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: time    
+        weekday:
+        - sun
+      - condition: state
+        entity_id: calendar.sun_worship
+        state: 'on'
+    action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.heatpump
+      - service: light.turn_off
+        entity_id: light.bedroom
+      - service: light.turn_off
+        entity_id: light.dining
+
+
+  - alias: Jarvis Elisha Shower Sun400
+    trigger:
+      platform: time
+      at: '16:00:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sun
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.8'
+      - delay: '00:00:03'   
+      - service: script.turn_on
+        entity_id: script.Jarvis_1600sun
+      - delay: '00:00:07'         
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.6'
+
+ 

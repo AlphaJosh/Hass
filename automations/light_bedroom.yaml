@@ -1,0 +1,85 @@
+ 
+#=======================================================================================
+# Bedroom Switch
+
+  - alias: Light - Bedroom switch toggle
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d00010ebcd8
+        click_type: single
+    action:
+      service: light.toggle
+      entity_id: light.bedroom
+
+  - alias: Light - Bedroom switch Toggle Bright Down
+    trigger:
+      - platform: event
+        event_type: xiaomi_aqara.click
+        event_data:
+          entity_id: binary_sensor.switch_158d00010ebcd8
+          click_type: hold
+      - platform: event
+        event_type: xiaomi_aqara.click
+        event_data:
+          entity_id: binary_sensor.switch_158d00010ebcd8
+          click_type: long_click_press          
+    condition:
+       condition: template
+       value_template: '{{ states.light.bedroom.attributes.brightness | float > 150 }}'        
+    action:
+      service: light.turn_on
+      entity_id: light.bedroom
+      data:
+        brightness: 40
+        transition: 2 
+        color_name: white
+        
+  - alias: Light - Bedroom switch Toggle Bright Up
+    trigger:
+      - platform: event
+        event_type: xiaomi_aqara.click
+        event_data:
+          entity_id: binary_sensor.switch_158d00010ebcd8
+          click_type: hold
+      - platform: event
+        event_type: xiaomi_aqara.click
+        event_data:
+          entity_id: binary_sensor.switch_158d00010ebcd8
+          click_type: long_click_press
+    condition:
+      condition: or
+      conditions:
+      - condition: state
+        entity_id: light.bedroom
+        state: 'off'
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: light.bedroom
+            state: 'on'
+          - condition: template
+            value_template: '{{ states.light.bedroom.attributes.brightness | float < 150 }}'                        
+    action:
+      service: light.turn_on
+      entity_id: light.bedroom
+      data:
+        brightness: 255
+        transition: 2   
+        color_name: white       
+
+  - alias: Light - Bedroom switch colour Toggle
+    trigger:
+      - platform: event
+        event_type: xiaomi_aqara.click
+        event_data:
+          entity_id: binary_sensor.switch_158d00010ebcd8
+          click_type: double
+    action:
+      service: light.turn_on
+      entity_id: light.bedroom
+      data:
+#        brightness: 255
+        brightness: '{{ (range(1, 254)|random|int) }}'
+        rgb_color: ['{{ (range(1, 254)|random|int) }}','{{ (range(1, 254)|random|int) }}','{{ (range(1, 254)|random|int) }}'] 

@@ -1,0 +1,21 @@
+# Office Switch
+# binary_sensor.switch_158d00020eb750
+
+  - alias: Light - Office switch Toggle
+    trigger:
+    #Square Bathroom Door Switch 
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d00020eb750
+        click_type: single
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d00020eb750
+        click_type: double        
+    action:
+    - service: light.toggle
+      entity_id: light.office  
+    - service: light.toggle
+      entity_id: light.hall

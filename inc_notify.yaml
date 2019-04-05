@@ -1,0 +1,79 @@
+  - name: email_josh
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    sender: !secret smtp_sender
+    starttls: true
+    username: !secret smtp_username
+    password: !secret smtp_password
+    recipient: 
+      - Josh@TeamNathan.co
+    sender_name: Home Assistant
+
+  - name: email_kay
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    sender: !secret smtp_sender
+    starttls: true
+    username: !secret smtp_username
+    password: !secret smtp_password
+    recipient: 
+      - Kay@TeamNathan.co
+    sender_name: Home Assistant
+
+  - name: email_joshkay
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    sender: !secret smtp_sender
+    starttls: true
+    username: !secret smtp_username
+    password: !secret smtp_password
+    recipient: 
+      - Josh@TeamNathan.co
+      - Kay@TeamNathan.co
+    sender_name: Home Assistant
+
+
+  - name: email_bargainbox
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    sender: !secret smtp_sender
+    starttls: true
+    username: !secret smtp_username
+    password: !secret smtp_password
+    sender_name: Joshua Nathan
+    recipient: 
+      - yum@bargainbox.co.nz
+
+
+  - name: smskay
+    platform: clicksend
+    username: !secret sms_username
+    api_key: !secret sms_key
+    recipient: !secret sms_kay
+
+  - name: smsjosh
+    platform: clicksend
+    username: !secret sms_username
+    api_key: !secret sms_key
+    recipient: !secret sms_josh
+
+  - name: fb
+    platform: facebook
+    # page_access_token: EAAXHvf2VBhMBAJKrFiBQU0hNtvK98mWwO1tcQcyZBFCvWGGl1So1pVxnZC1kxWZBZBZCPY6uF81zyS1RiD0g2vbU2Rf0UMAwkCH1cpHxbWxlbayLcvd7038ZBxYWIpqAIw8IOmoeQiyZBmZBjrSYllIjIscdn063ZBDTWoC3Uztbl9QZDZD
+    page_access_token: !secret fb_token
+    
+  - name: Google Assistant
+    platform: rest
+    resource: http://192.168.86.2:5000/broadcast_message
+    
+  - name: Google Assistant Command
+    platform: rest
+    resource: http://192.168.86.2:5000/command    
+    
+  - name: Whatsapp Josh
+    platform: twilio_whatsapp
+    from_number: whatsapp:+273589003 

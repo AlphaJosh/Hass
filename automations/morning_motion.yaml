@@ -1,0 +1,63 @@
+  - alias: FLAGS - Reset Wakeup at 5am
+    trigger:
+      platform: time
+      at: '05:00:00'
+    action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.out_of_bed
+  
+  - alias: Morning Motion
+    trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor_158d000112aaae
+      to: 'on'
+      from: 'off'
+    condition:
+    - condition: time
+      after: '5:00:00'
+      before: '8:00:00'    
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.out_of_bed
+
+
+  - alias: MORNING - 7:06 Extreme Wakup
+    trigger:
+      platform: time
+      at: '07:06:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.out_of_bed
+        state: 'off'        
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri  
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.9'    
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.bedroom_2
+          message: >
+            Good morning. The time is 7 10 you are late, you are late, you are late, you are late, you are late
+      - delay: '00:00:15'
+      - service: media_player.play_media
+        entity_id: media_player.bedroom_2
+        data:
+          # Rise Against - Prayer Of The Refugee
+          media_content_id: http://192.168.86.2:8123/local/Rise%20Against%20-%20Prayer%20Of%20The%20Refugee.mp3
+          media_content_type: audio/mp3  
+      
+     

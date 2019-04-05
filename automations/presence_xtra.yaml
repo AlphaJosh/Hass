@@ -1,0 +1,85 @@
+  - alias: Mark person as just arrived
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.josh_home
+        from: 'not_home'
+        to: 'home'
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.josh_status_dropdown
+          option: >
+            {% if trigger.entity_id == 'device_tracker.qopyeeku_josh' %}
+              {% if states.input_select.josh_status_dropdown.state == 'Just Left' %}
+                Home
+              {% else %}
+                Just Arrived
+              {% endif %}
+            {% else %}
+              {% if states.input_select.kay_status_dropdown.state == 'Just Left' %}
+                Home
+              {% else %}
+                Just Arrived
+              {% endif %}
+            {% endif %}
+         
+
+  - alias: Mark Josh as Almost home
+    trigger:
+      - platform: state
+        entity_id: device_tracker.josh
+        from: 'not_home'
+        to: 'almost_home'
+    condition:
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.josh_status_dropdown
+          option: Almost Home
+         
+  - alias: Mark Josh as home
+    trigger:
+      - platform: state
+        entity_id: input_select.josh_status_dropdown
+        to: 'Just Arrived'
+        for:
+          minutes: 10
+      - platform: state
+        entity_id: input_select.josh_status_dropdown
+        from: 'Just Left'
+        to: 'Just Arrived'
+    condition:
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.josh_status_dropdown
+          option: Home
+
+  - alias: Mark Josh as just left
+    trigger:
+      - platform: state
+        entity_id: device_tracker.josh
+        from: 'home'
+        to: 'not_home'
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.josh_status_dropdown
+          option: Just Left
+
+  - alias: Mark Josh as away
+    trigger:
+      - platform: state
+        entity_id: input_select.josh_status_dropdown
+        to: 'Just Left'
+        for:
+          minutes: 10
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.josh_status_dropdown
+          option: Away
+
+
+          
+          

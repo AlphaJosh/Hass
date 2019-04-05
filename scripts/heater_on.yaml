@@ -1,0 +1,5 @@
+  alias: HeaterOn
+  sequence:
+    - service: switch.turn_on
+      entity_id: switch.heatpump
+          

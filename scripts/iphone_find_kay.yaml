@@ -1,0 +1,5 @@
+  alias: FindKayiPhone      
+  sequence:
+    - service: device_tracker.icloud_lost_iphone
+      data:
+        device_name: kaysiphone6s             

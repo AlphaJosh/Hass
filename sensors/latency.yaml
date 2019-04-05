@@ -1,0 +1,14 @@
+  - platform: template
+    sensors:
+      latency_router:
+        value_template: '{% if is_state("binary_sensor.router", "on") %} {{ states.binary_sensor.router.attributes.round_trip_time_avg }} {% else %}Offline{% endif %}'
+        unit_of_measurement: 'ms'
+      latency_google:
+        value_template: '{% if is_state("binary_sensor.google", "on") %} {{ states.binary_sensor.google.attributes.round_trip_time_avg }} {% else %}Offline{% endif %}'
+        unit_of_measurement: 'ms'
+      latency_wifi:
+        value_template: '{% if is_state("binary_sensor.wifi", "on") %} {{ states.binary_sensor.wifi.attributes.round_trip_time_avg }} {% else %}Offline{% endif %}'
+        unit_of_measurement: 'ms'
+      latency_garage:
+        value_template: '{% if is_state("binary_sensor.garage", "on") %} {{ states.binary_sensor.garage.attributes.round_trip_time_avg }} {% else %}Offline{% endif %}'
+        unit_of_measurement: 'ms'        

@@ -1,0 +1,40 @@
+  alias: tv elisha
+  sequence:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.heatpump
+    - service: media_player.turn_on
+      entity_id: media_player.tv_2
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: '0.3'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.bedroom_2
+        volume_level: '0.0'      
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.bedroom_2
+        message: >
+          Good morning Elisha, the TV is starting up
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.kitchen
+        message: >
+          Good morning Elisha, the TV is starting up        
+    - service: light.turn_on
+      entity_id: light.dining
+      data:
+        brightness: 190
+        transition: 4
+    - service: media_player.select_source
+      entity_id: media_player.tv_2
+      data:
+        source: Plex
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.tv_2
+  #      media_content_id:  '{ \"playlist_name\" : \"Barbie\" \"shuffle\": \"1\" }'
+        media_content_id:  '{ "playlist_name" : "Barbie" "shuffle": "1" }'
+        media_content_type: PLAYLIST

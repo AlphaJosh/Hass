@@ -1,0 +1,27 @@
+# ALternate week number:  {{ ((now().strftime("%W") | int) % 2) == 0 }}
+
+
+  - alias: Rubbish Bins
+    trigger:
+      platform: time
+      at: '22:01:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.8'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Have you put out the rubbish bins yet. Tonight is {% if (now().isocalendar()[1] | float ).is_integer() %}red{% else %}yellow{% endif %} bin night
+ 

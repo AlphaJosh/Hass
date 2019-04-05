@@ -1,0 +1,75 @@
+alias: alarm arm nightmode
+sequence:
+  - service: cover.close_cover
+    entity_id: cover.garage_door
+  - service: light.turn_on
+    entity_id: light.gateway_light_7c49eb1a791d
+    data: 
+      brightness: 255    
+      rgb_color: [0,0,255]
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '0.7'
+  - service: tts.google_say
+    data_template:
+      entity_id: media_player.kitchen
+      message: >
+        Arming Alarm System, good night, sleep tight
+  - service: alarm_control_panel.alarm_arm_home
+    entity_id: alarm_control_panel.House
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '0.5'
+  - service: media_player.turn_off
+    entity_id: 
+      - media_player.tv_2
+      - media_player.elisha
+  - service: switch.turn_off
+    entity_id: 
+      - switch.sonoff_lounge
+      - switch.lounge_tv
+      - switch.heatpump
+      - switch.garage
+      - switch.led_fence
+  - service: light.turn_on
+    entity_id: light.dining1
+    data: 
+      brightness: 1
+      transition: 10  
+      color_name: white
+  - service: light.turn_off
+    entity_id: 
+      - light.Porch
+      - light.Laundry
+      - light.dining2
+      - light.dining3
+  - service: light.turn_on
+    entity_id: 
+      - light.hall1
+      - light.hall2
+    data: 
+      brightness: 10    
+  - service: light.turn_on
+    entity_id: light.Bedroom
+    data: 
+      brightness: 30
+      transition: 2
+      color_name: red
+  - delay: '00:01:30'    
+  - service: light.turn_on
+    entity_id: light.Bedroom
+    data: 
+      brightness: 1
+      transition: 10  
+      color_name: white
+  - delay: '00:00:1'    
+  - service: light.turn_off
+    entity_id: light.Bedroom
+        
+#  - service: switch.turn_on
+#    entity_id: switch.dining_state    
+#  - service: switch.turn_on
+#    entity_id: switch.lounge_state
+

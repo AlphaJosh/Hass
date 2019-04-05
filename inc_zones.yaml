@@ -1,0 +1,100 @@
+
+- name: Home
+  latitude: -43.560059
+  longitude: 172.586054
+  radius: 20
+- name: Home
+  latitude: -43.559556
+  longitude: 172.586027
+  radius: 20
+  icon: mdi:home
+- name: Church
+  latitude: -43.537169
+  longitude: 172.577038
+  radius: 20
+- name: Josh Work
+  latitude:   -43.529429
+  longitude: 172.631994
+  icon: mdi:castle
+  radius: 20
+- name: Josh Work
+  latitude:   -43.530355
+  longitude: 172.632675
+  icon: mdi:castle
+  radius: 20  
+- name: Josh Work
+  latitude:   -43.530464
+  longitude: 172.632518
+  icon: mdi:castle
+  radius: 40
+  
+- name: Josh Left
+  latitude:   -43.525483
+  longitude: 172.628146
+  icon: mdi:castle
+  radius: 20
+- name: Kay Work
+  latitude:  -43.542127
+  longitude: 172.616071
+  icon: mdi:castle
+  radius: 20
+- name: Mum Home
+  latitude:  -43.56123408306721
+  longitude: 172.6268101764588
+  icon: mdi:duck
+  radius: 100
+- name: Church Office
+  latitude:  -43.542108
+  longitude: 172.578255
+  icon: mdi:duck
+  radius: 20
+- name: Eli Home
+  latitude: -43.567028
+  longitude: 172.570060
+  icon: mdi:duck
+  radius: 100
+- name: Warehouse Blenheim
+  latitude: -43.538975
+  longitude: 172.584221
+  icon: mdi:duck
+  radius: 100
+- name: Riccarton Mall
+  latitude: -43.531190
+  longitude: 172.597214
+  icon: mdi:duck
+  radius: 100
+- name: Barrington Mall
+  latitude: -43.556266
+  longitude: 172.620520
+  icon: mdi:duck
+  radius: 100  
+- name: Daycare
+  latitude: -43.556250
+  longitude: 172.607195
+  icon: mdi:duck
+  radius: 100
+- name: Staceys
+  latitude: -43.553620
+  longitude: 172.614557
+  icon: mdi:duck
+  radius: 20
+- name: HomeGroup
+  latitude: -43.536587
+  longitude: 172.546572
+  icon: mdi:duck
+  radius: 20
+- name: Almost Home
+  latitude: -43.560507
+  longitude: 172.586449
+  icon: mdi:duck
+  radius: 15  
+- name: Almost Home
+  latitude: -43.562029
+  longitude: 172.582844
+  icon: mdi:duck
+  radius: 15
+# - name: PaknSave
+  # latitude: -43.530961
+  # longitude: 172.596217
+  # icon: mdi:duck
+  # radius: 15    

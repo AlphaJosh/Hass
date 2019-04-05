@@ -1,0 +1,10 @@
+  - platform: mqtt_room
+    device_id: exampleuuid-major-minor1
+    away_timeout: 30
+    name: 'Kays Car'
+    
+    
+  - platform: mqtt_room
+    device_id: exampleuuid-major-minor2
+    away_timeout: 30
+    name: 'Joshs Car'    

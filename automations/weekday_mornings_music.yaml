@@ -1,0 +1,148 @@
+
+  - alias: MORNING - 6:57 Music Monday
+    trigger:
+      platform: time
+      at: '6:57:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+    action:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.5'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.zenboo
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/CANT%20STOP%20THE%20FEELING!%20(From%20DreamWorks%20Animations%20Trolls)%20(Official%20Video).mp3
+          media_content_type: audio/mp3
+
+  - alias: MORNING - 6:57 Music Tues
+    trigger:
+      platform: time
+      at: '6:57:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - tue
+    action:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.5'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.zenboo
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/Pharrell%20Williams%20-%20Happy.mp3
+          media_content_type: audio/mp3
+
+  - alias: MORNING - 6:57 Music Wed
+    trigger:
+      platform: time
+      at: '6:57:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - wed
+    action:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.5'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.zenboo
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/Imagine%20Dragons%20-%20On%20Top%20of%20the%20World.mp3
+          media_content_type: audio/mp3
+
+  - alias: MORNING - 6:57 Music Thurs
+    trigger:
+      platform: time
+      at: '6:57:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - thu
+    action:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.5'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.zenboo
+        data:
+          # Mark Ronson - Uptown Funk ft. Bruno Mars
+          media_content_id: http://192.168.86.2:8123/local/music/Mark%20Ronson%20-%20Uptown%20Funk%20ft.%20Bruno%20Mars.mp3
+          media_content_type: audio/mp3
+
+  - alias: MORNING - 6:57 Music Fri
+    trigger:
+      platform: time
+      at: '6:57:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - fri
+    action:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.5'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.zenboo
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/Rebecca%20Black%20-%20Friday.mp3
+          media_content_type: audio/mp3
+
+  - alias: MORNING - 8:02 Music Prompt Music
+    trigger:
+      platform: time
+      at: '8:02:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+    action:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.6'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.zenboo
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/OK%20Go%20-%20I%20Wont%20Let%20You%20Down%20(Youtube).mp3
+          media_content_type: audio/mp3

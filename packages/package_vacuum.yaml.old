@@ -1,0 +1,265 @@
+  homeassistant:
+    customize:
+      input_boolean.disable_daily_vacuum:
+        icon: mdi:stop-circle-outline
+      input_boolean.disable_dustbin_notification:
+        icon: mdi:delete-empty
+      # binary_sensor.vacuum_room:
+        # custom_ui_state_card: state-card-floorplan
+        # config: !include ../floorplan_vacuum.yaml
+        
+  # https://github.com/stanvx/Home-Assistant-Configuration/tree/master/packages 
+    vacuum:
+      platform: xiaomi_miio
+      name: Xiaomi
+      host: 192.168.86.130
+      token: !secret vac_token
+   
+    camera:
+      platform: generic
+      name: Vacuum Map
+      still_image_url: http://192.168.86.130{{states.sensor.vacuummap.state | string }}
+      content_type: image/png
+      framerate: 1
+
+
+    binary_sensor:
+    - platform: mqtt
+      state_topic: dummy/floorplan/sensor
+      name: Vacuum Room
+
+    sensor:
+      platform: template
+      sensors:
+        xiaomi_vacuum_cleaner_status:
+          entity_id:
+            - vacuum.xiaomi_vacuum_cleaner
+          friendly_name: "Xiaomi Vacuum Cleaner Status"
+          value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner }}"
+
+    group:
+      vacuum:
+        name: Vacuum
+        view: true
+        entities:
+          - camera.vacuum_map    
+          # - sensor.vacuummap
+          - vacuum.xiaomi
+          - input_select.vacuum_room
+      
+      Robot Vacuum:
+        control: hidden
+        entities:
+          - vacuum.xiaomi
+          - input_boolean.disable_daily_vacuum
+      Vacuum a Room:
+        control: hidden
+        entities:
+          - input_select.vacuum_room
+          - binary_sensor.vacuum_room               
+        
+    input_select:
+      vacuum_room:
+        name: Choose a room to clean
+        options:
+          - Select Input
+          - Living Areas
+          - Dining, Kitchen & Laundry
+          - Lounge
+          - Dining Room
+          - Kitchen
+          - End Rooms
+          - Main Bathroom
+          - Main Bedroom
+          - Ensuite Bathroom
+          - Hallway
+          - Hall
+          - Laundry
+        initial: Select Input      
+        
+    automation:
+       - alias: Start Cleaning Room
+         # hide_entity: True
+         trigger:
+           platform: state
+           entity_id: input_select.vacuum_room
+           from: 'Select Input'
+         action:
+         - service: script.turn_on
+           data_template:
+             entity_id: >
+               {% if is_state("input_select.vacuum_room", "Living Areas") %}
+                 script.vac_living_areas
+               {% elif is_state("input_select.vacuum_room", "Dining, Kitchen & Laundry") %}
+                 script.vacuum_bedroom
+               {% elif is_state("input_select.vacuum_room", "End Rooms") %}
+                 script.vac_endrooms
+               {% elif is_state("input_select.vacuum_room", "Dining Room") %}
+                 script.vac_dining
+               {% elif is_state("input_select.vacuum_room", "Kitchen") %}
+                 script.vac_kitchen
+               {% elif is_state("input_select.vacuum_room", "Main Bedroom") %}
+                 script.vac_bedroom
+               {% elif is_state("input_select.vacuum_room", "Main Bathroom") %}
+                 script.vac_bathroom             
+               {% elif is_state("input_select.vacuum_room", "Ensuite Bathroom") %}
+                 script.vac_ensuite
+               {% elif is_state("input_select.vacuum_room", "Lounge") %}
+                 script.vac_lounge
+               {% elif is_state("input_select.vacuum_room", "Hall") %}
+                 script.vac_hall             
+               {% else %}
+               {% endif %}
+         - service: input_select.select_option
+           data:
+            entity_id: input_select.vacuum_room
+            option: Select Input
+            
+          
+      # vaccum_go_and_clean_and_go_home:
+          # alias: "Go to Elisha room, clean and then go home"
+          # sequence:
+  ##          Go to starting point in the kids room
+            # - service: vacuum.send_command
+              # data:
+                # entity_id: vacuum.roborock
+                # command: app_goto_target
+                # params: [23350,23600]
+  ##          Wait untill done
+            # - wait_template: "{{ states.vacuum.roborock.attributes.status == 'Idle'}}"
+            # - service: input_number.set_value
+              # data:
+                # entity_id: input_number.vaccum_progress
+                # value: 1
+            # - delay: '00:00:30'
+  ##          clean room
+            # - service: vacuum.send_command
+              # data:
+                # entity_id: vacuum.roborock
+                # command: app_zoned_clean
+                # params: [[20613,19502,24163,25002,1]]
+  ##          Wait untill done
+            # - wait_template: "{{ states.vacuum.roborock.attributes.status == 'Returning home'}}"
+            # - service: input_number.set_value
+              # data:
+                # entity_id: input_number.vaccum_progress
+                # value: 2
+            # - delay: '00:00:05'
+  ##          Stop going home
+            # - service: vacuum.stop
+              # data:
+                # entity_id: vacuum.roborock
+                
+                
+                
+     # aspirador_set_mop:
+      # sequence:
+        # service: vacuum.set_fan_speed
+        # data:
+          # entity_id: vacuum.aspirador
+          # fan_speed: 105
+
+
+  # service: vacuum.send_command
+  # data:
+  # entity_id: vacuum.mijia
+  # command: app_zoned_clean
+  # params: [[23000, 21800, 31600, 27600, 1]]
+
+                
+    script:
+      vac_lounge:
+        alias: "Vac Lounge"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[20896,25189,27196,29039,2]]               
+
+      vac_dining:
+        alias: "Vac Dining"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[23415,29162,27465,33312,2]]      
+                
+      vac_kitchen:
+        alias: "Vac Kitchen"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[21631,29913,23581,32363,1]]                 
+
+      vac_laundry:
+        alias: "Vac Laundry"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[20008,32317,23158,34717,1]]
+              
+      vac_hall:
+        alias: "Vac Hall"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[24050,33511,25200,41861,1]]
+              
+      vac_bathroom:
+        alias: "Vac Bathroom"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[21369,34879,24069,37079,1]]
+
+      vac_bedroom:
+        alias: "Vac Bedroom"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[25679,41012,29329,45012,1]]
+
+      vac_ensuite:
+        alias: "Vac Ensuite"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[24065,42494,25615,45044,1]]
+
+      vac_endrooms:
+        alias: "Vac EndRooms"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[24065,40894,29415,45044,1]]
+
+
+      vac_living_areas:
+        alias: "Vac Living Areas"
+        sequence:
+          - service: vacuum.send_command
+            data:
+              entity_id: vacuum.xiaomi
+              command: app_zoned_clean
+              params: [[19990,25082,27390,34282,1]]
+
+            
+
+
+         

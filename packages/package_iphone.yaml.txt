@@ -1,0 +1,30 @@
+homeassistant:
+# ios:
+
+  # device_tracker:
+    # - platform: icloud
+      # username: !secret icloud_user
+      # password: !secret icloud_pass
+      # account_name: icloud
+
+
+#https://gist.github.com/walthowd/6d23c1864c493db45b6d3d81f8ef4c65    
+  - platform: icloud2
+    username: !secret icloud_user
+    password: !secret icloud_pass
+    account_name: icloud
+    filter_devices: 'phone'    
+      
+#automation:    
+#  alias: Find Josh's Phone      
+#  action:
+#    - service: device_tracker.icloud_lost_iphone
+#      data:
+#        device_name: Kaysiphone6s
+
+
+#  alias: Find Kay's Phone      
+#  action:
+#    - service: device_tracker.icloud_lost_iphone
+#      data:
+#        device_name: iPhone6SPlus

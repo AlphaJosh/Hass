@@ -1,0 +1,45 @@
+#Generate New Verse
+  - alias: VERSE - Generate New
+    trigger:
+      platform: time
+      at: '02:00:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: time    
+        weekday:
+        - mon
+        - thu
+    action:
+      - service: shell_command.newmemoryverse
+
+
+
+#Send Verse Out###################################################################
+  - alias: VERSE - Send Out Josh
+    trigger:
+      platform: time
+      at: '04:32:00'
+    condition:
+    - condition: time    
+      weekday:
+      - mon
+      - thu
+    action:
+      - service: notify.smsjosh
+        data_template:
+          message: '{{ states.sensor.memory_verse.state }}' 
+
+  - alias: VERSE - Send Out Kay
+    trigger:
+      platform: time
+      at: '07:00:00'
+    condition:
+    - condition: time    
+      weekday:
+      - mon
+      - thu
+    action:
+      - service: notify.smskay
+        data_template:
+          message: '{{ states.sensor.memory_verse.state }}'

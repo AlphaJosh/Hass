@@ -1,0 +1,6 @@
+  - platform: template
+    sensors:
+      garage_angle:
+        friendly_name: "Garage Angle"
+        unit_of_measurement: 'kB/s'
+        value_template: "{{ states('sensor.transmission_down_speed') + 98 }}"

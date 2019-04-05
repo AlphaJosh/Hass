@@ -1,0 +1,293 @@
+
+          
+#=======================================================================================
+# Arm Alarm
+  - alias: ALARM - Arm Alarm Switch Night
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000126442a
+        click_type: long_click_release
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000128b12d
+        click_type: long_click_release
+    condition:
+      condition: and
+      conditions:    
+      - condition: state
+        entity_id: alarm_control_panel.house
+        state: 'disarmed'
+      - condition: time
+        after: '20:00:00'
+        before: '07:00:00'
+    action:
+      - service: script.turn_on
+        entity_id: script.alarm_arm_home_night
+
+
+# Arm alarm during the day
+#  if noone is home
+#  and if alarm is not triggered or already active
+
+  - alias: ALARM - Arm Alarm Day Door Checks
+    trigger:
+      platform: time
+      at: '09:30:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.mum_at_home
+        state: 'off'             
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      - condition: state
+        entity_id: group.presence
+        state: 'not_home'
+      - condition: state
+        entity_id: alarm_control_panel.house
+        state: 'disarmed'
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id:  binary_sensor.door_window_sensor_158d00014de9c1
+            state: 'on'
+          - condition: state
+            entity_id:  binary_sensor.door_window_sensor_158d0001596697
+            state: 'on'                  
+          - condition: state
+            entity_id:  binary_sensor.door_window_sensor_158d000112fb09
+            state: 'on'        
+    action:
+    - service: notify.email_josh
+      data_template:
+        message: |-
+          There is an open door!!
+            {% if is_state('binary_sensor.door_window_sensor_158d00014de9c1', 'on') %}
+              Front Door: Open
+            {% endif %}
+            {% if is_state('binary_sensor.door_window_sensor_158d0001596697', 'on') %}
+              Back Door: Open
+            {% endif %}
+            {% if is_state('binary_sensor.door_window_sensor_158d000112fb09', 'on') %}
+              Garage Door: Open
+            {% endif %}
+            
+    - service: notify.ios_joshs_iphone6s
+      data:
+        message: |-
+          There is an open door!!
+            {% if is_state('binary_sensor.door_window_sensor_158d00014de9c1', 'on') %}
+              Front Door: Open
+            {% endif %}
+            {% if is_state('binary_sensor.door_window_sensor_158d0001596697', 'on') %}
+              Back Door: Open
+            {% endif %}
+            {% if is_state('binary_sensor.door_window_sensor_158d000112fb09', 'on') %}
+              Garage Door: Open
+            {% endif %}
+    - service: notify.fb
+      data:
+        message: |-
+          There is an open door!!
+            {% if is_state('binary_sensor.door_window_sensor_158d00014de9c1', 'on') %}
+              Front Door: Open
+            {% endif %}
+            {% if is_state('binary_sensor.door_window_sensor_158d0001596697', 'on') %}
+              Back Door: Open
+            {% endif %}
+            {% if is_state('binary_sensor.door_window_sensor_158d000112fb09', 'on') %}
+              Garage Door: Open
+            {% endif %}
+        target:
+          - '+64273589003'
+          # - '+64273589005'               
+      
+#  action:
+#  - service: notify.pushbullet            
+#    data:
+#      title: ''
+#      message: >
+#        Motion detected in the 
+#        {%- if is_state('sensor.downstairs_motion_motion_sensor', 'on') %} Downstairs 
+#        {% elif is_state('binary_sensor.door_window_sensor_158d00027b3daa', 'on') %} Garage Door
+#        {% elif is_state('binary_sensor.door_window_sensor_158d000239432d', 'on') %} Front Door
+#        {% elif is_state('binary_sensor.door_window_sensor_158d00027b5a03', 'on') %} Middle Door
+#        {% else %} Upstairs
+#        {% endif %}
+            
+  - alias: ALARM - Arm Alarm Day by Time
+    trigger:
+      platform: time
+      at: '09:30:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.mum_at_home
+        state: 'off'             
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      - condition: state
+        entity_id: group.presence
+        state: 'not_home'
+      - condition: state
+        entity_id: alarm_control_panel.house
+        state: 'disarmed'
+    action:
+      - service: light.turn_on
+        entity_id: light.gateway_light_7c49eb1a791d
+        data: 
+          brightness: 255
+          rgb_color: [0,0,60] #Blue    
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.zenboo
+          message: >
+            Attention. . . Attention. . . Arming Alarm system in 60 seconds
+      - delay: '00:01:00'
+      - service: script.turn_on
+        entity_id: script.alarm_arm_away_daymode
+
+
+  - alias: ALARM - Arm Alarm Switch Day
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000126442a
+        click_type: long_click_release
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000128b12d
+        click_type: long_click_release
+    condition:
+      condition: and
+      conditions:    
+      - condition: state
+        entity_id: alarm_control_panel.house
+        state: 'disarmed'
+      - condition: time
+        after: '08:00:00'
+        before: '16:00:00'
+    action:
+      - service: script.turn_on
+        entity_id: script.alarm_arm_daymode
+
+
+#=======================================================================================
+#
+#  - alias: ALARM - Alarm Pending Light
+#        entity_id: alarm_control_panel.house
+#    trigger:
+#        state: armed_away  
+          
+
+#=======================================================================================
+# Disarm Alarm
+  - alias: ALARM - Alarm Disarm by Switch
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000126442a
+        click_type: long_click_release
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000128b12d
+        click_type: long_click_release     
+    condition:
+      condition: or
+      conditions:    
+        - condition: state
+          entity_id: alarm_control_panel.house
+          state: 'armed_home'
+        - condition: state
+          entity_id: alarm_control_panel.house
+          state: 'armed_away'
+        - condition: state
+          entity_id: alarm_control_panel.house
+          state: 'triggered'            
+    action:
+      - service: script.turn_on
+        entity_id: script.alarm_disarm_with_alert
+
+#  - alias: ALARM - Alarm Disarm by Presence
+#    trigger:
+#    - platform: state
+#      entity_id: device_tracker.joshsiphone, device_tracker.christinesiphone, device_tracker.kaysiphone, device_tracker.chrissipad
+#      from: 'not_home'
+#      to: 'home'     
+#    condition:
+#      condition: and
+#      conditions:
+#        - condition: time    
+#          after: '08:45:00'
+#          before: '16:30:00'         
+#        - condition: or
+#          conditions:             
+#            - condition: state
+#              entity_id: alarm_control_panel.house
+#              state: armed_home
+#            - condition: state
+#              entity_id: alarm_control_panel.house
+#              state: armed_away
+#    action:
+#      - service: script.turn_on
+#        entity_id: script.alarm_disarm_with_alert
+ 
+  - alias: ALARM - Alarm Disarm Home by Time
+    trigger:
+      platform: time
+      at: '6:00:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: alarm_control_panel.house
+        state: armed_home
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'off'
+    action:     
+      - service: script.turn_on
+        entity_id: script.alarm_disarm_with_no_alert
+
+  - alias: ALARM - Alarm Disarm by Cancel press
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000126442a
+        click_type: long_click_release
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.house
+        state: pending
+    action:
+      - service: script.turn_on
+        entity_id: script.alarm_disarm_with_no_alert
+
+
+

@@ -1,0 +1,7 @@
+  - platform: mqtt
+    state_topic: 'tele/RFGateway/RESULT'
+    value_template: '{{value_json.RfReceived.Data}}'
+    name: "RF Bridge"
+    expire_after: 1
+    
+#E363FE Outside Motion

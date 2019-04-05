@@ -1,0 +1,83 @@
+  alias: alarm arm home night
+  sequence:
+    - service: input_select.select_option
+      entity_id: input_select.alarm_status
+      option: "Armed Home"
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+    - service: light.turn_on
+      entity_id: light.gateway_light_7c49eb1a791d
+      data: 
+        brightness: 255    
+        rgb_color: [0,0,255]
+    - service: alarm_control_panel.alarm_arm_home
+      entity_id: alarm_control_panel.house
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: '0.5'
+    - service: media_player.turn_off
+      entity_id: 
+        - media_player.tv_2
+        - media_player.elisha
+    - service: switch.turn_off
+      entity_id: 
+        - switch.sonoff_lounge
+        - switch.lounge_tv
+        - switch.heatpump
+        - switch.led_fence
+        - switch.piano_power
+        - switch.christmas_tree
+        - switch.tv_power 
+    - service: light.turn_on
+      entity_id: light.dining1
+      data: 
+        brightness: 1
+        transition: 10  
+        color_name: white
+    - service: light.turn_off
+      entity_id: 
+        - light.Porch
+        - light.Laundry
+        - light.dining2
+        - light.dining3
+        - light.bbq
+        - light.fence
+    - service: light.turn_on
+      entity_id: 
+        - light.hall1
+      data: 
+        brightness: 12
+    - service: light.turn_on
+      entity_id: 
+        - light.dining1
+        - light.hall2
+      data: 
+        brightness: 10     
+    - service: light.turn_on
+      entity_id: light.Bedroom
+      data: 
+        brightness: 30
+        transition: 2
+        color_name: red
+    - delay: '00:01:30'    
+    - service: light.turn_on
+      entity_id: light.Bedroom
+      data: 
+        brightness: 1
+        transition: 10  
+        color_name: white
+    - delay: '00:00:1'    
+    - service: light.turn_off
+      entity_id: light.Bedroom
+    - service: switch.turn_off
+      entity_id: 
+        - switch.camera_motion_elisha
+        - switch.camera_motion_kitchen
+        - switch.camera_motion_lounge
+          
+  #  - service: switch.turn_on
+  #    entity_id: switch.dining_state    
+  #  - service: switch.turn_on
+  #    entity_id: switch.lounge_state
+

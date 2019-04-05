@@ -1,0 +1,9 @@
+  - platform: mqtt
+    name: "Living room table lamp"
+    state_topic: "stat/RF_Bridge/RESULT"
+    command_topic: "cmnd/RF_Bridge/RFCODE"
+    qos: 1
+    payload_on: '#8F82DC#'
+    payload_off: '#8F82D4#'
+    optimistic: true
+    icon: mdi:lightbulb    

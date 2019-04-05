@@ -1,0 +1,5 @@
+  - platform: command_line
+    name: Memory Verse
+    #command: python3 -c "print(open('/config/MemoryVerse-ThisWeek.txt').readlines())"
+    command: cat '/config/MemoryVerse-ThisWeek.txt'
+    scan_interval: 7200

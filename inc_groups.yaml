@@ -1,0 +1,461 @@
+default_view:
+  view: yes
+  name: Home
+  entities:
+    - group.Lights  
+    - group.power   
+    - group.switches
+    - group.todays_agenda
+#    - group.Devices
+    - group.Presence
+    - group.temperature
+
+System:
+  view: yes
+  entities:
+  - group.Addresses
+  - group.ha_status
+  - group.machine
+
+#    - group.battery_levels
+  - group.Weather
+  - group.temperature
+  - group.gwifi
+  - group.speedtest
+  - group.latency
+  - group.firewall
+  # - group.pihole
+  - sensor.tilt_angle_158d0002a92520
+
+Media:
+  view: yes
+  entities:
+  - media_player.everything_3
+  - media_player.bedroom_2
+  - media_player.bathroom
+  - media_player.kitchen
+  - media_player.ensuite
+  - media_player.nabaztag
+  #TV
+  - media_player.tv_2
+  #Elisha
+  - media_player.elisha
+  #Lounge
+  - media_player.lounge
+  - media_player.zenboo
+  - media_player.chromecastaudio0648
+  - input_text.broadcast_message
+  - input_text.google_command
+         
+automation:
+  name: Automation
+  view: yes
+  entities:
+#     - group.all_scenes
+#     - group.inputs
+  - group.all_automations
+  - group.all_scripts
+    
+Security:
+  view: yes
+  entities:  
+    - alarm_control_panel.house
+    - group.SecurityCam
+    - group.cameras
+    - group.doors
+    # - group.siren
+    
+Lights:
+  name: Lights
+  view: no
+  entities:
+    - light.bedroom
+    - light.bathroom
+    - light.toilet1
+    - light.dining1
+    - light.dining2
+    - light.dining3
+    - light.elisha
+    - light.hall1
+    - light.hall2
+    - light.laundry
+    - light.hall
+    - light.office
+    - light.bbq_lights
+    - light.fence
+    - light.porch
+    
+    # - group.light_group    
+#    - light.yeelight_white_f0b429a8d92b
+
+    #Office Gateway
+    # - light.gateway_light_f0b429cc6a07
+    #Kitchen Gateway
+    # - light.gateway_light_7c49eb1a791d
+
+
+   
+    
+Power:
+  name: Power
+  view: no
+  entities:
+    - switch.sonoff_lounge
+#    - switch.Sonoff_Bedroom
+#    - switch.fridgepower
+#    - switch.hall_heater
+#    - switch.bedroom_heater
+#    - switch.elisha_heater
+    - switch.powerkettle
+    - switch.piano_power
+#     - switch.lounge-tv
+    - switch.heatpump
+    - switch.josh_blanket
+    - switch.kay_blanket
+#    - switch.loungetv
+    - switch.tv_power  
+    - switch.piano_power
+
+Bedroom:
+  name: Bedroom
+  entities:
+    - switch.joshblanket
+    - switch.kayblanket
+    - light.bathroom    
+    - switch.kayspare1
+    - switch.kayspare2
+    - switch.joshspare1
+
+
+light_group:
+  name: "Dining Lights"
+  control: hidden
+  entities:
+    - light.dining1
+    - light.dining2
+    - light.dining3
+    
+machine:    
+  name: Machine Stats
+  view: no
+  entities:
+    - binary_sensor.internet_connection
+    - sensor.memory_use_percent
+    - sensor.cpu_speed
+    - sensor.disk_use_percent
+    
+ha_status:
+  name: HA Status
+  view: no
+  entities:
+    - sensor.uptime
+    - sensor.bad_login
+  
+latency:
+  name: Latency
+  view: no
+  entities:
+    - sensor.latency_google
+    - sensor.latency_router
+    - sensor.latency_wifi
+    - sensor.latency_garage
+    
+firewall:
+  name: Firewall
+  view: no
+  entities:
+    - sensor.fortigate_cpu_usage
+    - sensor.fortigate_current_bandwidth
+    - sensor.fortigate_memory_usage
+    
+Presence:
+  view: no
+  entities:
+    # - input_select.josh_status_dropdown
+    # - input_select.kay_status_dropdown
+  
+    - device_tracker.iphone6splus
+    - device_tracker.kaysiphone6s
+    # - device_tracker.joshsipad
+    - device_tracker.christinesiphone
+    # - device_tracker.chrissipad
+    - device_tracker.elishaiphone
+    - device_tracker.elishaiphoneold
+
+Dining:
+  view: yes
+  entities:
+    - group.Dining_Lights
+#    - light.led_strip_3
+#    - media_player.tv_2
+    - switch.heatpump
+#    - switch.tv
+    - switch.Sonoff_Lounge
+
+Devices:
+  - media_player.tv_2
+  - media_player.kitchen
+  - media_player.bedroom_2
+  - media_player.bathroom
+  - media_player.ensuite
+  - media_player.Elisha
+  - media_player.lounge
+  - media_player.everything_3
+  - media_player.zenboo
+  - media_player.nabaztag
+
+Tab_Nabaztag:
+  name: Nabaztag
+  view: no
+  icon: mdi:carrot
+  entities:
+    - group.nabaztag_utils
+    - group.nabaztag_body
+    - group.nabaztag_lights
+    - group.nabaztag_locale_setup
+
+Travel:
+  view: no
+  entities:
+  - group.commute
+
+Switches:
+#  - input_boolean.motion_in_garage
+  - input_boolean.stay_at_home
+  - input_boolean.pretend_to_be_home
+  - input_boolean.out_of_bed
+  - input_boolean.lunches_made
+  # - input_boolean.dash_garage
+#  - input_boolean.meat_in_fridge
+  - switch.garage_door
+  - cover.garage_door
+  - switch.ipad
+  
+
+    
+SecurityCam:
+  control: hidden
+  entities:  
+  - switch.lounge_state
+  - switch.Dining_state
+
+Speedtest:
+  control: hidden
+  entities:  
+  - sensor.speedtest_download
+  - sensor.speedtest_ping
+  - sensor.speedtest_upload
+  
+weather_condition:
+   - sensor.date_time
+   - sensor.weather_icon
+   - sensor.weather_condition
+   - sensor.weather_summary
+   - group.sun
+   - sensor.weather_cloud_coverage
+   - sensor.weather_dew_point
+   - sensor.weather_ozone
+   - sensor.weather_precip_type
+   - sensor.weather_precip_probability
+   - sensor.weather_precip
+   - sensor.weather_precip_intensity
+   - sensor.weather_pressure
+   - sensor.weather_visibility
+   - sensor.weather_nearest_storm_distance
+   - sensor.weather_wind_bearing
+   - sensor.weather_wind_speed  
+
+   - sensor.dark_sky_hourly_summary
+   - sensor.dark_sky_apparent_temperature
+   - sensor.dark_sky_daily_high_temperature
+   - sensor.dark_sky_daily_low_temperature
+   
+Weather:
+  view: yes
+  icon: mdi:temperature-celsius
+  name: Weather
+  entities:
+   - group.sun
+   - group.weather_condition
+   - group.iss
+   - group.weatherForecast
+
+
+weatherForecast:
+  name: Weather Forecast
+  view: no
+  entities:
+      - input_boolean.weather
+            
+Temperature:
+  control: hidden
+  name: Temperature
+  entities:
+    - sensor.temperature_158d00010fc34d
+    - sensor.temperature_158d00012ba326
+    - sensor.temperature_158d000156a9c6
+    - sensor.elisha_temp_temperature
+
+#battery_levels:
+#  view: false
+#  name: battery_levels
+#  entities:
+#    - sensor.binary_sensor.door_window_sensor_158d000110d4fe.attributes.battery_level
+#    - sensor.binary_sensor.door_window_sensor_158d000112fb09.attributes.battery_level
+#    - sensor.binary_sensor.door_window_sensor_158d00012d8be2.attributes.battery_level
+#    - sensor.binary_sensor.door_window_sensor_158d0001596697attributes..battery_level
+#    - sensor.binary_sensor.motion_sensor_158d00010d0d3b.attributes.battery_level
+#    - sensor.binary_sensor.motion_sensor_158d00010f3c52.attributes.battery_level
+#    - sensor.binary_sensor.motion_sensor_158d0001108751.attributes.battery_level
+#    - sensor.binary_sensor.motion_sensor_158d000112aaae.attributes.battery_level
+#    - sensor.binary_sensor.motion_sensor_158d00011c0414.attributes.battery_level
+#    - sensor.binary_sensor.switch_158d00010ebcd8.attributes.battery_level
+#    - sensor.binary_sensor.switch_158d000125649d.attributes.battery_level
+#    - sensor.binary_sensor.switch_158d000125cf5f.attributes.battery_level
+#    - sensor.binary_sensor.switch_158d0001264364.attributes.battery_level
+#    - sensor.binary_sensor.switch_158d000126442a.attributes.battery_level
+#    - sensor.binary_sensor.switch_158d000128b12d.attributes.battery_level
+#    - sensor.flower_1_battery
+#    - sensor.flower_2_battery
+
+   
+input_bool:
+  view: false
+  name: input_bool
+  entities:
+    - input_boolean.stay_at_home
+    - input_boolean.pretend_to_be_home
+
+gwifi:
+  view: false
+  name: Google Wifi
+  entities:
+    - sensor.google_wifi_status
+    - sensor.google_wifi_last_restart
+    - sensor.google_wifi_local_ip
+    - sensor.google_wifi_new_version
+    - sensor.google_wifi_uptime
+
+LoungePower:
+  view: false
+  entities:
+    - switch.loungedvd
+    - switch.loungepi
+    - switch.loungeps3
+    - switch.loungetv
+    - switch.tv_power
+    - switch.piano_power
+    
+PiHole:
+  view: false
+  entities:
+    - sensor.pihole_ads_blocked_today
+    - sensor.pihole_dns_queries_today
+    - sensor.pihole_dns_unique_clients 
+
+Sun:
+  entities:
+    - sun.sun
+    - sensor.yr_symbol
+    
+ISS:
+  - camera.iss
+  - binary_sensor.iss
+
+leak_sensors:
+  view: false
+  entities:
+    - binary_sensor.water_leak_sensor_158d00022f9c8c 
+    - binary_sensor.water_leak_sensor_158d0002349805
+    - binary_sensor.water_leak_sensor_158d000237338b
+
+    
+doors:
+  view: false
+  entities:
+    - cover.garage_door
+    - binary_sensor.door_window_sensor_158d0001596697
+    - binary_sensor.door_window_sensor_158d00014de9c1
+    - binary_sensor.door_window_sensor_158d000110d4fe
+    # - binary_sensor.door_window_sensor_158d000112fb09
+    - binary_sensor.front_gate
+    
+josh:
+  view: false
+  entities:
+    - device_tracker.iphone6splus
+    - device_tracker.iphone6spluslan
+    
+siren:
+  view: false
+  entities:
+    - input_boolean.siren_chirp
+    - input_boolean.siren_flash    
+    - input_boolean.siren_activate 
+
+Addresses:
+  control: hidden
+  entities:
+    - sensor.external_ip
+    - sensor.localip  
+   
+cameras:
+  view: false
+  entities:
+    - camera.driveway
+    - camera.fence
+    - camera.kitchen    
+    - camera.elisha
+    - camera.lounge
+    - camera.garage
+    - camera.backdoor
+    
+
+vacuum:
+  name: Vacuum
+  view: true
+  entities:
+    - camera.vacuum_map    
+    # - sensor.vacuummap
+    - vacuum.xiaomi
+    - input_select.vacuum_room
+    
+    
+
+Robot_Vacuum:
+  control: hidden
+  entities:
+    - vacuum.xiaomi
+    - input_boolean.disable_daily_vacuum
+    
+Vacuum a Room:
+  control: hidden
+  entities:
+    - input_select.vacuum_room
+    - binary_sensor.vacuum_room         
+      
+      
+########################################################################################################################
+location_mum:
+  name: Mum's Location
+  view: false
+  control: hidden
+  entities:
+    - device_tracker.christine_siphone
+    
+location_family:
+  name: Family's Location
+  view: false
+  control: hidden
+  entities:
+    - device_tracker.joshsiphone6s
+    - device_tracker.kaysiphone6s
+    
+external_doors:    
+  name: External Doors
+  view: false
+  control: hidden
+  entities:
+    - binary_sensor.door_window_sensor_158d000110d4fe
+    - binary_sensor.door_window_sensor_158d00014de9c1
+    - binary_sensor.door_window_sensor_158d0001596697

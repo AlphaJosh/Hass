@@ -1,0 +1,50 @@
+alias: Alarm Alert Home FrontDoor
+sequence:
+  - service: shell_command.msgjosh
+    data_template:
+      text: "Front door has been opened"  
+  - service: light.turn_on
+    entity_id: light.gateway_light_7c49eb1a791d
+    data: 
+      rgb_color: [255, 0, 0] 
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.bedroom_2
+      volume_level: '0.4'
+  - delay: '00:00:05'          
+  - service: tts.google_say
+    data_template:
+      entity_id: media_player.bedroom_2
+      message: >
+        Excuse me. The Front door has been opened
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '0.6'        
+  - delay: '00:00:03'          
+  - service: tts.google_say
+    data_template:
+      entity_id: media_player.kitchen
+      message: >
+        The alarm has been triggered and people have been notified. Did you know that you are being videoed right now  
+  - service: light.turn_on
+    entity_id: light.dining
+    data:
+      brightness: 255
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.house
+  - delay: '00:00:05'          
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '0.6'
+  - service: notify.emailjosh
+    data:
+      title: 'Intruder alert'
+      message: 'Intruder alert - Front Door!!'
+  - service: notify.fb
+    data:
+      message: 'Intruder alert - Front Door!!'
+      target:
+        - '+64273589003'
+#        - '+64273589005'

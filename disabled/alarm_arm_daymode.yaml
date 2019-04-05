@@ -1,0 +1,46 @@
+alias: alarm arm daymode
+sequence:
+  - service: light.turn_on
+    entity_id: light.gateway_light_7c49eb1a791d
+    data: 
+      brightness: 255    
+      rgb_color: [0,0,255]
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '0.7'
+  - service: tts.google_say
+    data_template:
+      entity_id: media_player.kitchen
+      message: >
+        Arming Alarm System, Have a good day
+  - service: alarm_control_panel.alarm_arm_away
+    entity_id: alarm_control_panel.house
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.everything_3
+      volume_level: '0.9'
+  - service: media_player.turn_off
+    entity_id: media_player.everything_3
+  - service: switch.turn_off
+    entity_id: 
+      - group.LoungePower
+      - switch.heatpump
+      - switch.garage
+      - switch.led_fence
+  - service: light.turn_off
+    entity_id: group.all_lights
+  - service: shell_command.msggrp
+    data_template:
+      text: "Home Alarm System Armed"
+  - service: switch.turn_on
+    entity_id: switch.dining_state
+  - service: switch.turn_on
+    entity_id: switch.lounge_state
+  - service: notify.fb
+    data:
+      message: 'Home Alarm Armed (Away mode)'
+      target:
+        - '+64273589003'
+        - '+64273589005'
+

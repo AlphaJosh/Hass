@@ -1,0 +1,19 @@
+   
+  - platform: yeelight
+    devices:
+      192.168.86.60:
+        name: Laundry
+
+  # - platform: flux_led
+    # automatic_add: True
+
+  - platform: mqtt
+    name: "BBQ Lights"
+    state_topic: "stat/bbq/POWER"
+    command_topic: "cmnd/bbq/POWER"   
+
+  - platform: mqtt
+    name: "Fence"
+    state_topic: "stat/sonoff-fence-light1/POWER"
+    command_topic: "cmnd/sonoff-fence-light1/POWER"   
+ 

@@ -1,0 +1,17 @@
+  alias: alarm_day_triggered
+  sequence:
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.house
+    data:
+      code: !secret alarm_code
+#Lights flash
+#Gateway Light Red
+#Siren
+#Email - Send photo
+#Facebook message
+#Kitchen: Message
+#Lounge: Siren
+#End House: dog bark
+#   Long MP3
+
+

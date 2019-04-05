@@ -1,0 +1,9 @@
+#https://github.com/gazoscalvertos/HASS-Persistence
+  - platform: persistence
+    entities: 
+      - input_select.alarm_status
+#off
+#away_day      
+#away_night
+#home
+#triggered    

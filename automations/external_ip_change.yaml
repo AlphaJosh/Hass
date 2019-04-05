@@ -1,0 +1,77 @@
+  # - id: '1525220727899'
+  - alias: Notify Of New External IP
+    trigger:
+      - platform: state
+        entity_id: sensor.external_ip
+    condition:
+      condition: and
+      conditions:
+      - condition: template
+        value_template: "{% if trigger.from_state and trigger.to_state %} true {% else %} false {% endif %}"
+      - condition: template
+        value_template: "{% if trigger.from_state.state == 'unknown' %} false {% else %} true {% endif %}"
+      - condition: template
+        value_template: "{% if trigger.to_state.state == 'unknown' %} false {% else %} true {% endif %}"
+      - condition: template
+        value_template: "{{ trigger.from_state.state != trigger.to_state.state }}"
+    action:
+      - service: notify.fb
+        data_template:
+          message: "Your External IP changed from {{ trigger.from_state.state }} to {{ trigger.to_state.state }}"
+          target:
+            - '+64273589003'   
+            
+            
+# config system admin
+# edit admin
+# set ssh-public-key1 "ssh-rsa <public key data>"
+# end
+
+
+# ssh root@192.168.86.1 -p 22
+
+# ssh-keygen -t rsa
+# echo "PASTE YOUR MASTER KEY INSTEAD OF THIS TEXT" >> ~/.ssh/authorized_keys
+# chmod 600 ~/.ssh/authorized_keys
+# ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no 
+
+# switch:
+  # - platform: command_line
+    # switches:
+      # test_ssh:
+        # command_on: "ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no mister.slave@192.168.0.111 'sudo reboot'"
+  # friendly_name: Magic Test Switch
+  
+
+#!/bin/bash
+# config vdom > vip.txt
+# edit root >> vip.txt
+# config firewall vip >> vip.txt
+    # edit "NAT-HTTP" >> vip.txt
+        # set extip $1 >> vip.txt
+    # next >> vip.txt
+    # edit "NAT-HTTPS" >> vip.txt
+        # set extip $1 >> vip.txt
+    # next >> vip.txt
+# end >> vip.txt
+# end >> vip.txt
+# exit >> vip.txt
+# ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no -p 22 192.168.86.2 < vip.txt
+# rm vip.txt
+
+# ssh xxx.xxx.xxx.xxx -p 22 < ~/scripts/script1.txt
+
+
+
+#!/usr/bin/expect 
+# set timeout 60 
+# spawn ssh ken@1.1.1.1
+# expect " Password: " 
+# send " mystrongpassword\r" 
+# expect " MASW1" 
+# send " \r" 
+# expect “MASW1”
+# send “copy running startup”
+# expect “MASW"
+
+            

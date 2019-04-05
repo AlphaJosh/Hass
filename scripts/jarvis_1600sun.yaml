@@ -1,0 +1,8 @@
+  alias: Jarvis 1600sun
+  sequence:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          The time is {{ now().strftime("%l:%M") }}. Eleesha needs to have a shower. Also start thinking about dinner. Eleesha needs to have a shower.
+          

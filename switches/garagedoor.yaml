@@ -1,0 +1,8 @@
+- platform: mqtt
+  name: "Garage Door"
+  state_topic: "home/garage/door"
+  value_template: "{{ states('binary_sensor.door_window_sensor_158d000112fb09') }}"
+  command_topic: "home/garage/door"
+  payload_on: "on"
+  payload_off: "off"
+  optimistic: false

@@ -1,0 +1,8 @@
+  alias: Kay Blanket On
+  sequence:
+    - service: switch.turn_off
+      entity_id: switch.kay_blanket
+    - delay:
+        seconds: 15
+    - service: switch.turn_on
+      entity_id: switch.kay_blanket

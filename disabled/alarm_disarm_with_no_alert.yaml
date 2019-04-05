@@ -1,0 +1,14 @@
+alias: Alarm Disarm With No Alert
+sequence:
+  - service: light.turn_off
+    entity_id: light.gateway_light_7c49eb1a791d
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.house
+  - service: switch.turn_off
+    entity_id: switch.dining_state
+  - service: switch.turn_off
+    entity_id: switch.lounge_state
+#  - service: mqtt.publish
+#    topic: 'cmnd/RFBridge/RfKey2'
+#    payload: 'ON'
+        

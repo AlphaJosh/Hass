@@ -1,0 +1,35 @@
+  - platform: mqtt
+    name: "LED Fence"    
+    state_topic: "stat/sonoff-fence-light1/POWER"
+    command_topic: "cmnd/sonoff-fence-light1/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    
+  - platform: mqtt
+    name: "TV Power"
+    state_topic: "stat/sonoff-tv/POWER"
+    command_topic: "cmnd/sonoff-tv/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true    
+    
+  - platform: mqtt
+    name: "Piano Power"
+    state_topic: "stat/sonoff-piano/POWER"
+    command_topic: "cmnd/sonoff-piano/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true        
+    
+  - platform: mqtt
+    name: "Christmas Tree"
+    state_topic: "stat/bbq/POWER"
+    command_topic: "cmnd/bbq/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true      

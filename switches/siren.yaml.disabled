@@ -1,0 +1,46 @@
+# - platform: mqtt
+  # name: "Siren Silent"
+  # state_topic: "stat/sonoffbridge/rfkey" 
+  # command_topic: "cmnd/sonoffbridge/rfkey" 
+  # payload_on: "rfkey3" 
+  # payload_off: "rfkey"
+  # state_on: "ON" 
+  # state_off: "OFF"
+  # qos: 2 
+  # retain: true
+  # optimistic: false
+
+  - platform: mqtt
+    name: "Siren Flash"
+    state_topic: "tele/RFGateway/RESULT"
+    command_topic: "cmnd/RFGateway/rfkey1"
+    qos: 1
+    payload_on: 1
+    payload_off: 0
+    # payload_on: "#A7C981#"
+    # payload_off: "#A7C982#"
+    retain: true
+
+    
+  - platform: mqtt
+    name: "Siren Alarm"
+    state_topic: "tele/RFGateway/RESULT"
+    command_topic: "cmnd/RFGateway/RfCode"
+    qos: 1
+    payload_on: "#A7C988#"
+    payload_off: "#A7C982#"
+    retain: true
+    
+  - platform: mqtt
+    name: "Siren Chirp"
+    state_topic: "tele/RFGateway/RESULT"
+    command_topic: "cmnd/RFGateway/RfCode"
+    qos: 1
+    payload_on: "#A7C984#"
+    payload_off: "#A7C984_off#"
+    retain: true  
+    
+cmnd/RFGateway/backlog
+and in the payload I send
+RfSync 4880; RfLow 200; RfHigh 550; RfCode #43370C;
+    

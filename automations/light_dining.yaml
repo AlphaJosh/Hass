@@ -1,0 +1,41 @@
+  - alias: "Light - Dining switch On"
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000128b12d
+        click_type: single
+    condition:   
+    - condition: state
+      entity_id: light.hall
+      state: 'off'      
+    action:
+      service: light.turn_on
+      entity_id: 
+        - light.hall
+        - light.dining2
+        - light.dining3
+      data: 
+        brightness: 255
+        transition: 2
+        color_name: white
+
+          
+        
+  - alias: "Light - Dining switch Off"
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000128b12d
+        click_type: single
+    condition:   
+    - condition: state
+      entity_id: light.hall
+      state: 'on'      
+    action:
+      service: light.turn_off
+      entity_id: 
+        - light.hall
+        - light.dining2
+        - light.dining3

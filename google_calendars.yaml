@@ -1,0 +1,35 @@
+
+- cal_id: '#contacts@group.v.calendar.google.com'
+  entities:
+  - device_id: contacts
+    name: Contacts
+    track: false
+
+- cal_id: family@teamnathan.co
+  entities:
+  - device_id: familyteamnathanco
+    name: Family Cal
+    track: true
+    
+  - device_id: alarm
+    name: alarm
+    search: "#alarm: "
+    track: true
+  
+  - device_id: PretendAway
+    name: PretendAway
+    track: true
+    search: "#Holiday"
+
+- cal_id: en.new_zealand#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_new_zealand
+    name: Holidays in New Zealand
+    track: true
+
+- cal_id: addressbook#contacts@group.v.calendar.google.com
+  entities:
+  - device_id: contacts
+    ignore_availability: true
+    name: Contacts
+    track: true

@@ -1,0 +1,8 @@
+  # - platform: command_line
+    # command: "grep -c service_data=notification_id=http-login /root/config/home-assistant.log"
+    # name: badlogin 
+    
+  - platform: command_line
+    name: bad_login
+    command: "grep -c 'Login attempt' /root/config/home-assistant.log"
+    value_template: '{{ value | int - 1 }}'

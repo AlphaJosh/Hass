@@ -1,0 +1,6 @@
+  alias: FindJoshiPhone      
+  sequence:
+    - service: device_tracker.icloud_lost_iphone
+      data:
+        device_name: joshsiphone6s
+        

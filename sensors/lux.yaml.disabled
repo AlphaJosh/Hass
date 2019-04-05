@@ -1,0 +1,3 @@
+  - name: lux
+    platform: illuminance
+    entity_id: sensor.dark_sky_icon

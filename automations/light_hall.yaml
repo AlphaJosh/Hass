@@ -1,0 +1,120 @@
+  # - alias: "STARTUP - Hall Light On"
+    # trigger:
+      # platform: homeassistant
+      # event: start
+    # condition:
+      # condition: and
+      # conditions:
+      # - condition: state
+        # entity_id: input_boolean.stay_at_home
+        # state: 'off'
+      # - condition: time
+        # after: '18:0:00'
+        # before: '7:00:00'
+    # action:
+      # - service: light.turn_on
+        # entity_id: light.hall1
+      # - service: light.turn_on
+        # entity_id: light.hall2        
+
+  - alias: Light - Hall switch Toggle
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id:  binary_sensor.switch_158d00026badff
+        click_type: single
+    action:
+      - service: light.toggle
+        entity_id: light.hall1
+      - service: light.toggle
+        entity_id: light.hall2        
+     
+  # - alias: Light - Hall motion Turn down hall light 4 minutes after last
+    # trigger:
+      # - platform: state
+        # entity_id: binary_sensor.motion_sensor_158d00010f3c52
+        # to: 'off'
+        # from: 'on'
+        # for:
+          # minutes: 4
+    # condition:    
+      # - condition: time
+        # after: '19:00:00'
+        # before: '6:00:00'          
+    # action:
+      # - service: light.turn_on
+        # entity_id: light.hall1
+        # data:
+          # brightness: 18
+          # transition: 3
+      # - service: light.turn_on
+        # entity_id: light.hall2
+        # data:
+          # brightness: 20
+          # transition: 3           
+          
+  # - alias: Light - Hall time - on Hall light when there is movement after 7pm before 6am
+    # trigger:
+      # - platform: state
+        # entity_id: binary_sensor.motion_sensor_158d00010f3c52
+        # to: 'on'
+    # condition:    
+      # - condition: time
+        # after: '19:00:00'
+        # before: '6:00:00'
+    # action:
+      # - service: light.turn_on
+        # entity_id: light.hall1
+        # data:
+          # brightness: 20
+          # transition: 3        
+      # - service: light.turn_on
+        # entity_id: light.hall2
+        # data:
+          # brightness: 20
+          # transition: 3              
+                    
+  - alias: Light - Hall switch Dim on Hold
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d00026badff
+        click_type: hold                   
+    condition:
+       condition: template
+       value_template: '{{ states.light.hall1.attributes.brightness | float > 150 }}'        
+    action:
+      - service: light.turn_on
+        entity_id: light.hall1
+        data:
+          brightness: 60
+          transition: 3        
+      - service: light.turn_on
+        entity_id: light.hall2
+        data:
+          brightness: 60
+          transition: 3  
+
+  - alias: Hall light Turn Up on Hold
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d00026badff
+        click_type: hold
+    condition:
+    - condition: template
+      value_template: '{{ states.light.hall1.attributes.brightness | float < 150 }}'                        
+    action:
+      - service: light.turn_on
+        entity_id: light.hall1
+        data:
+          brightness: 255
+          transition: 3        
+      - service: light.turn_on
+        entity_id: light.hall2
+        data:
+          brightness: 255
+          transition: 3   

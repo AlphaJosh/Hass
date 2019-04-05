@@ -1,0 +1,88 @@
+
+  - alias: Jarvis Remind Garage is open after 7pm
+    trigger:
+      platform: time_pattern
+      # You can also match on interval. This will match every 5 minutes
+      minutes: '/30'
+      seconds: 00
+    condition:
+      - condition: state
+        entity_id: binary_sensor.door_window_sensor_158d000112fb09
+        state: 'on'
+      - condition: time
+        after: '18:30:00'
+        before: '6:00:00'        
+    action:
+#      - service: script.turn_on
+#        entity_id: script.Jarvis_Garage_Open
+      - service: shell_command.msgrp
+        data_template:
+          text: "The Garage door is still open"        
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Excuse me. The Garage Door is still open
+            
+
+  - alias: Jarvis Lunches 2200
+    trigger:
+      platform: time
+      at: '22:00:00'
+    condition:
+    - condition: time    
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - sun
+    action:
+      - service: media_player.media_stop
+        entity_id: media_player.kitchen  
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.6'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+           Good Evening. The time is 10 p m. Lunches need to be made. Made lunches now!
+      - service: light.turn_on
+        entity_id: group.dining_lights
+        data:
+          brightness: 255
+          transition: 2
+
+      
+  # - alias: Jarvis Go To Bed 1030
+    # trigger:
+      # platform: time
+      # at: '22:30:00'
+    # condition:
+    # - condition: time    
+      # weekday:
+      # - mon
+      # - tue
+      # - wed
+      # - thu
+      # - sun
+    # action:
+      # - service: media_player.media_stop
+        # entity_id: media_player.kitchen    
+      # - service: media_player.volume_set
+        # data_template:
+          # entity_id: media_player.kitchen
+          # volume_level: '0.8'
+      # - service: tts.google_say
+        # data_template:
+          # entity_id: media_player.kitchen
+          # message: >
+            # Good Evening. The time is {{(now().strftime('%I')|int) }} {{ now().minute }}. You need to be up early. Go get ready for bed now.
+      # - delay: '00:00:09'          
+      # - service: media_player.volume_set
+        # data_template:
+          # entity_id: media_player.kitchen
+          # volume_level: '0.6'
+      

@@ -1,0 +1,37 @@
+   - alias: Start Cleaning Room
+     # hide_entity: True
+     trigger:
+       platform: state
+       entity_id: input_select.vacuum_room
+       from: 'Select Input'
+     action:
+     - service: script.turn_on
+       data_template:
+         entity_id: >
+           {% if is_state("input_select.vacuum_room", "Living Areas") %}
+             script.vac_living_areas
+           {% elif is_state("input_select.vacuum_room", "Dining, Kitchen & Laundry") %}
+             script.vacuum_bedroom
+           {% elif is_state("input_select.vacuum_room", "End Rooms") %}
+             script.vac_endrooms
+           {% elif is_state("input_select.vacuum_room", "Dining Room") %}
+             script.vac_dining
+           {% elif is_state("input_select.vacuum_room", "Kitchen") %}
+             script.vac_kitchen
+           {% elif is_state("input_select.vacuum_room", "Main Bedroom") %}
+             script.vac_bedroom
+           {% elif is_state("input_select.vacuum_room", "Main Bathroom") %}
+             script.vac_bathroom             
+           {% elif is_state("input_select.vacuum_room", "Ensuite Bathroom") %}
+             script.vac_ensuite
+           {% elif is_state("input_select.vacuum_room", "Lounge") %}
+             script.vac_lounge
+           {% elif is_state("input_select.vacuum_room", "Hall") %}
+             script.vac_hall             
+           {% else %}
+           {% endif %}
+     - service: input_select.select_option
+       data:
+        entity_id: input_select.vacuum_room
+        option: Select Input
+   

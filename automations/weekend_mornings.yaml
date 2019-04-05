@@ -1,0 +1,438 @@
+#########################################################
+# Morning Rituals
+
+  - alias: SUNDAY - 8:30 Jarvis Wakeup 
+    trigger:
+      platform: time
+      at: '08:30:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sun
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom
+        data:
+          brightness: 80
+          transition: 6
+          color_name: white
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.6'
+      # Say quote
+      - delay: '00:00:03'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.bedroom_2
+          message: >
+            Good morning. The time is 8 thirty a m. You need to be up now. It's currently {{states.sensor.dark_sky_summary.state}} and {{states.sensor.dark_sky_temperature.state|round}} degrees. Today will be {{states.sensor.dark_sky_hourly_summary.state|replace(".", "")}}, with a high of {{states.sensor.dark_sky_daily_high_temperature.state|round}} and a low of {{states.sensor.dark_sky_daily_low_temperature.state|round}}. 
+
+  - alias: SUNDAY - 8:31 Music 
+    trigger:
+      platform: time
+      at: '8:31:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sun
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.5'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.bedroom_2
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/MATT%20BIANCO%20-%20Get%20Out%20Of%20Your%20Lazy%20Bed.mp3
+          media_content_type: audio/mp3
+
+  - alias: SUNDAY - sun Breakfast over 910
+    trigger:
+      platform: time
+      at: '09:10:00'         
+    condition: 
+      - condition: time   
+        weekday:
+        - sun    
+    action:
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Good morning. The time is 9 10. Breakfast time is over.  You have 20 minutes to get ready. Make it happen
+
+  - alias: SUNDAY - sun Elisha Dressed 911
+    trigger:
+      platform: time
+      at: '09:11:00'         
+    condition: 
+      - condition: time   
+        weekday:
+        - sun    
+    action:
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Eleesha Time to get dressed, you can get dressed by the heater if you like.
+        
+  - alias: SUNDAY - Jarvis sun Get Ready To Leave 9:15
+    trigger:
+      platform: time
+      at: '09:15:00'
+    condition:
+      - condition: time    
+        weekday:
+        - sun
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.9'
+      - delay: '00:00:03'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.everything_3
+          message: >
+            The time is now {{ now().strftime("%l:%M") }}. Time to get ready to go
+      - delay: '00:00:07'
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.6'
+      - delay: '00:00:10'         
+      - service: media_player.play_media
+        entity_id: media_player.everything_3
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/OK%20Go%20-%20I%20Wont%20Let%20You%20Down%20(Youtube).mp3
+          media_content_type: audio/mp3
+          
+
+  - alias: SUNDAY - Jarvis sun Get Ready To Leave 9:20
+    trigger:
+      platform: time
+      at: '09:20:00'
+    condition:
+      - condition: time    
+        weekday:
+        - sun
+    action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.heatpump    
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.everything_3
+          message: >
+            It is {{ now().strftime("%l:%M") }}. You should be just about to go. Dont forget your phone
+
+  - alias: SUNDAY - Jarvis SUN Get Ready To Leave 925 Chopper
+    trigger:
+      platform: time
+      at: '09:25:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sun
+    action:
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.everything_3
+          message: >
+            It is {{ now().strftime("%l:%M") }}. Get ready to leave now. Dont forget your phone. Unchain the front door 
+#      - service: media_player.play_media
+#        entity_id: media_player.everything_3
+#        data:
+#          media_content_id: http://192.168.86.2:32400/library/parts/1/1496913067/file.mp3?download=1&X-Plex-Token=Tp1nu1xiC9YBSSq5zdfi
+#          media_content_type: audio/mp3
+          
+  - alias: SUNDAY - Jarvis SUN Elisha Shoes 926
+    trigger:
+      platform: time
+      at: '09:26:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sun
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.7'    
+      - service: switch.turn_off
+        data:
+          entity_id: switch.tv 
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Eleesha time to get your shoes on. Go get your shoes on now.
+
+
+  - alias: SUNDAY - Jarvis SUN Get Ready To Leave 930
+    trigger:
+      platform: time
+      at: '09:30:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sun
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          The time is now {{ now().strftime("%l:%M") }}. Time to Go! Go! Go!
+
+  - alias: SUNDAY - Jarvis Leave Drop 935
+    trigger:
+      platform: time
+      at: '09:35:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sun
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          It is now {{ now().strftime("%l:%M") }}. Drop everything and leave Now!
+        
+  - alias: SUNDAY - Jarvis SUN 940 RUnning Late
+    trigger:
+      platform: time
+      at: '09:40:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sun
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          The time is now {{ now().strftime("%l:%M") }}. You are now running late
+
+
+#########################################################
+# Morning Rituals
+
+  - alias: SATURDAY - 8:30 Jarvis Wakeup 
+    trigger:
+      platform: time
+      at: '08:30:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sat
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom
+        data:
+          brightness: 80
+          transition: 6
+          color_name: white
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.6'
+      # Say quote
+      - delay: '00:00:03'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.bedroom_2
+          message: >
+            Good morning. The time is 8 thirty a m. It's currently {{states.sensor.dark_sky_summary.state}} and {{states.sensor.dark_sky_temperature.state|round}} degrees. Today will be {{states.sensor.dark_sky_hourly_summary.state|replace(".", "")}}, with a high of {{states.sensor.dark_sky_daily_high_temperature.state|round}} and a low of {{states.sensor.dark_sky_daily_low_temperature.state|round}}. 
+
+  - alias: SATURDAY - 9:00 Music 
+    trigger:
+      platform: time
+      at: '9:00:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sat
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_2
+          volume_level: '0.5'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.bedroom_2
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/MATT%20BIANCO%20-%20Get%20Out%20Of%20Your%20Lazy%20Bed.mp3
+          media_content_type: audio/mp3
+
+  - alias: SATURDAY - sat Breakfast over 9:05
+    trigger:
+      platform: time
+      at: '9:05:00'         
+    condition: 
+      - condition: time   
+        weekday:
+        - sat    
+    action:
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Good morning. The time is 9 10. Breakfast time is over.  You have 20 minutes to get ready. Make it happen
+
+  - alias: SATURDAY - sat Elisha Dressed 11:06
+    trigger:
+      platform: time
+      at: '11:06:00'         
+    condition: 
+      - condition: time   
+        weekday:
+        - sat    
+    action:
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Eleesha Time to get dressed, you can get dressed by the heater if you like.
+        
+  - alias: SATURDAY - Jarvis sun Get Ready To Leave 11:10
+    trigger:
+      platform: time
+      at: '11:10:00'
+    condition:
+      - condition: time    
+        weekday:
+        - sat
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.9'
+      - delay: '00:00:03'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.everything_3
+          message: >
+            The time is now {{ now().strftime("%l:%M") }}. Time to get ready to go
+      - delay: '00:00:07'
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.6'
+      - delay: '00:00:10'         
+      - service: media_player.play_media
+        entity_id: media_player.everything_3
+        data:
+          media_content_id: http://192.168.86.2:8123/local/music/MATT%20BIANCO%20-%20Get%20Out%20Of%20Your%20Lazy%20Bed.mp3
+          media_content_type: audio/mp3
+          
+
+  - alias: SATURDAY - Jarvis sun Get Ready To Leave 11:15
+    trigger:
+      platform: time
+      at: '11:15:00'
+    condition:
+      - condition: time    
+        weekday:
+        - sat
+    action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.heatpump    
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.everything_3
+          message: >
+            It is {{ now().strftime("%l:%M") }}. You should be just about to go. Dont forget your phone
+
+  - alias: SATURDAY - Jarvis SUN Get Ready To Leave 1120 Chopper
+    trigger:
+      platform: time
+      at: '11:20:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sat
+    action:
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.everything_3
+          message: >
+            It is {{ now().strftime("%l:%M") }}. Get ready to leave now. Dont forget your phone   
+#      - service: media_player.play_media
+#        entity_id: media_player.everything_3
+#        data:
+#          media_content_id: http://192.168.86.2:32400/library/parts/1/1496913067/file.mp3?download=1&X-Plex-Token=Tp1nu1xiC9YBSSq5zdfi
+#          media_content_type: audio/mp3
+          
+  - alias: SATURDAY - Jarvis SUN Elisha Shoes 11:21
+    trigger:
+      platform: time
+      at: '11:21:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sat
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.7'    
+      - service: switch.turn_off
+        data:
+          entity_id: switch.tv 
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Eleesha time to get your shoes on. Go get your shoes on now.
+
+
+  - alias: SATURDAY - Jarvis SUN Get Ready To Leave 1130
+    trigger:
+      platform: time
+      at: '09:30:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sat
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          The time is now {{ now().strftime("%l:%M") }}. Time to Go! Go! Go!
+
+  - alias: SATURDAY - Jarvis Leave Drop 1130
+    trigger:
+      platform: time
+      at: '11:30:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sat
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          It is now {{ now().strftime("%l:%M") }}. Drop everything and leave Now!
+        
+  - alias: SATURDAY - Jarvis SUN 11:35 RUnning Late
+    trigger:
+      platform: time
+      at: '11:35:00'
+    condition:
+    - condition: time    
+      weekday:
+      - sat
+    action:
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.everything_3
+        message: >
+          The time is now {{ now().strftime("%l:%M") }}. You are now running late
+
+

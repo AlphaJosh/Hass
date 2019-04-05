@@ -1,0 +1,76 @@
+  alias: Bed Room Party
+  sequence:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.heatpump
+        
+    - service: switch.turn_off
+      entity_id: switch.sonoff_lounge
+      
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: '0.3'
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.bedroom_2
+        volume_level: '0.3'      
+        
+    - service: light.turn_off
+      entity_id: light.dining, light.lounge1, light.lounge2, light.lounge13, light.porch
+
+      #music
+      #hey google, shuffle Sexy Music or Songs to Striptease. playlist, on spotify. on bedroom
+
+  #  - service: xiaomi_aqara.play_ringtone
+  #    data:
+  #      gw_mac: !secret xiaomi_gw_mac
+  #      ringtone_id: 10017
+  #      ringtone_vol: 10
+
+    - service: media_player.select_source
+      entity_id: media_player.spotify
+      data:
+        source: 'bedroom'
+    - delay:
+        seconds: 1
+    - service: media_player.media_play
+      entity_id: media_player.spotify
+      
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.spotify
+        media_content_type: playlist
+      data_template:
+        media_content_id: spotify:user:spotify:playlist:3fDM1gp8kU2hjsW25YDs21
+    - service: media_player.shuffle_set
+      data:
+        entity_id: media_player.spotify
+        shuffle: 'true'
+    - service: media_player.media_next_track
+      data:
+        entity_id: media_player.spotify
+              
+    - delay: '00:00:30'
+       
+    - service: light.turn_on
+      entity_id: light.bedroom
+      data_template:
+        transition: 20
+        color_temp: 285
+        rgb_color: 54,0,4
+        brightness: 54
+           
+  #Turn on LED Strip Light 
+    - service: light.turn_on
+      entity_id: light.led_strip_1
+      data_template:
+        brightness: 200
+        transition: 3
+        rgb_color: 255,0,0        
+                 
+    - delay: '00:15:00'        
+
+  #Turn off Bathroom light
+    - service: light.turn_off
+      entity_id: light.bathroom              

@@ -1,0 +1,50 @@
+  - alias: "LoungePower on 6:30am"
+    trigger:
+      platform: time
+      at: '06:30:00'
+    action:
+    - service: switch.turn_on
+      entity_id:
+        - switch.loungetv
+        - switch.loungeps3
+        - switch.loungepi
+        - switch.loungedvd
+
+  - alias: "LoungePower off 8:30am"
+    trigger:
+      platform: time
+      at: '08:30:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri      
+    action:
+    - service: switch.turn_of
+      entity_id:
+        - switch.loungetv
+        - switch.loungeps3
+        - switch.loungepi
+        - switch.loungedvd 
+      
+      
+  - alias: "LoungePower on 3pm"
+    trigger:
+      platform: time
+      at: '15:00:00'
+    action:
+    - service: switch.turn_on
+      entity_id:
+        - switch.loungetv
+        - switch.loungeps3
+        - switch.loungepi
+        - switch.loungedvd          
+

@@ -1,0 +1,11 @@
+  - platform: command_line
+    switches:
+      camera_motion_elisha:
+        command_on: curl 'http://192.168.86.13/admin?motion=1&camera=elisha'
+        command_off: curl 'http://192.168.86.13/admin?motion=0&camera=elisha'
+      camera_motion_kitchen:
+        command_on: curl 'http://192.168.86.13/admin?motion=1&camera=kitchen'
+        command_off: curl 'http://192.168.86.13/admin?motion=0&camera=kitchen'
+      camera_motion_lounge:
+        command_on: curl 'http://192.168.86.13/admin?motion=1&camera=lounge'
+        command_off: curl 'http://192.168.86.13/admin?motion=0&camera=lounge'

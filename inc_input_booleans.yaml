@@ -1,0 +1,55 @@
+  out_of_bed:
+    name: Out of Bed
+    initial: on
+    icon: mdi:bed
+  stay_at_home:
+    name: Stay at Home
+    initial: off
+    icon: mdi:home
+#  meat_in_fridge:
+#    name: Meat in Fridge
+#    initial: off
+#    icon: mdi:home
+  vacation_mode:
+    name: Vacation Mode
+    initial: off
+    icon: mdi:home
+  pretend_to_be_home:
+    name: Pretend to be Home
+    initial: off
+    icon: mdi:home
+  mum_at_home:
+    name: Mum at Home
+    initial: off
+    icon: mdi:home    
+  lunches_made:
+    name: lunches Made
+    initial: off
+    icon: mdi:home    
+  party_time:
+    name: Party Time
+    initial: off
+    icon: mdi:home
+  dash_garage:
+    initial: off
+  weather:
+  siren_flash:
+    name: Siren Flash
+    initial: off
+    icon: mdi:pine-tree
+  siren_chirp:
+    name: Siren Chirp
+    initial: off
+    icon: mdi:pine-tree    
+  siren_activate:
+    name: Siren Activate
+    initial: off
+    icon: mdi:pine-tree
+  alarm_on:
+    name: Alarm On
+    icon: mdi:pine-tree
+  zigbee_permit_join:
+    name: Allow devices to join
+    initial: off
+    icon: mdi:cellphone-wireless
+    

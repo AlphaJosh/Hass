@@ -1,0 +1,21 @@
+
+#=======================================================================================
+# Toilet Switch
+
+  - alias: Light - Laundry switch Toggle
+    trigger:
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000223c1a3
+        click_type: single
+    - platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d000126442a
+        click_type: single        
+    action:
+    - service: light.toggle
+      entity_id: ight.laundry
+    - service: light.toggle
+      entity_id: light.yeelight_white_f0b429a8d92b

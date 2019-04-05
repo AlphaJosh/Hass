@@ -1,0 +1,3 @@
+  alias: BlueIris_Start
+  sequence:
+    - service: rest_command.cam_record_start

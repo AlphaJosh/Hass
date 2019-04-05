@@ -1,0 +1,8 @@
+  - platform: orvibo
+    discovery: true
+    switches:
+      - host: 192.168.86.90
+        mac: ac:cf:23:99:df:24
+        name: Power-Kettle
+        
+        

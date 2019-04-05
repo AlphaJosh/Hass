@@ -1,0 +1,27 @@
+  - alias: EVENING - Holiday 5:30 Dinner time
+    trigger:
+      platform: time
+      at: '16:45:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.8'
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Time to start making dinner, What shall we eat tonight?

@@ -1,0 +1,32 @@
+  cam_record_start:
+    url: !secret blue_iris_start
+    method: GET
+
+  cam_record_stop:
+    url: !secret blue_iris_stop
+    method: GET
+    
+  bedroom_dnd_on:
+    url: http://192.168.86.32:8008/setup/assistant/notifications
+    method: POST
+    payload: '{"notifications_enabled": false}'
+    content_type:  'application/json; charset=utf-8'
+
+  bedroom_dnd_off:
+    url: http://192.168.86.32:8008/setup/assistant/notifications
+    method: POST
+    payload: '{"notifications_enabled": true}'
+    content_type:  'application/json; charset=utf-8'
+    
+  ensuite_dnd_on:
+    url: http://192.168.86.37:8008/setup/assistant/notifications
+    method: POST
+    payload: '{"notifications_enabled": false}'
+    content_type:  'application/json; charset=utf-8'
+
+  ensuite_dnd_off:
+    url: http://192.168.86.37:8008/setup/assistant/notifications
+    method: POST
+    payload: '{"notifications_enabled": true}'
+    content_type:  'application/json; charset=utf-8'
+        

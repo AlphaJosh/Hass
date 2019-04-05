@@ -1,0 +1,162 @@
+# -------------------------------------------------------------------------------------------------------
+# AWAY
+
+# Play Music
+#  - alias: Play Music when away 9pm
+#    trigger:
+#      platform: time
+#      after: '21:00:00'
+#    condition:
+#      condition: or
+#      conditions:
+#      - condition: state
+#        entity_id: input_boolean.pretend_to_be_home
+#        state: 'on'
+#      - condition: state      
+#        entity_id: group.all_devices
+#        state: not_home         
+#    action:
+#      - service: xiaomi.play_ringtone
+#        data:
+#          # https://github.com/Danielhiversen/homeassistant/pull/6
+#          ringtone_id: 1002
+#          gw_sid: f0b429cc6a07
+#          ringtone_vol: 20
+
+# Play Music
+#  - alias: Play Bark 3min long
+#    trigger:
+#      platform: time
+#      after: '23:00:00'
+#    condition:
+#      condition: or
+#      conditions:
+#      - condition: state
+#        entity_id: input_boolean.pretend_to_be_home
+#        state: 'on'
+#      - condition: state      
+#        entity_id: group.all_devices
+#        state: not_home         
+#    action:
+#      - service: media_player.volume_set
+#        data_template:
+#          entity_id: media_player.kitchen
+#          volume_level: '0.8'    
+#      - service: media_player.volume_set
+#        data_template:
+#          entity_id: media_player.bedroom_2
+#          volume_level: '0.8'              
+#      - service: media_player.play_media
+#        entity_id: media_player.everything_3
+#        data:
+#          media_content_id: http://192.168.86.10:32400/library/parts/1079/1494395727/file.mp3?download=1&X-Plex-Token=BB2pq8GSdsxBpHzgvEyy
+#          media_content_type: audio/mp3
+
+# Stop music at 11pm and dog bark 
+
+# Lights off
+# Lights on
+
+
+  - alias: AWAY - Lights off 4am
+    trigger:
+      platform: time
+      at: '4:00:00'
+    condition:
+    - condition: state
+      entity_id: input_boolean.pretend_to_be_home
+      state: 'on'
+    action:
+      - service: light.turn_off
+        entity_id: group.all_lights
+
+  - alias: AWAY - Lights on 916
+    trigger:
+      platform: time
+      at: '9:16:00'
+    condition:
+    - condition: state
+      entity_id: input_boolean.pretend_to_be_home
+      state: 'on'     
+    action:
+      - service: light.turn_on
+        entity_id: group.all_lights
+      - service_template: light.turn_on
+        entity_id: light.porch        
+        
+  - alias: AWAY - Lights on 5pm
+    trigger:
+      platform: time
+      at: '17:00:00'
+    condition:
+    - condition: state
+      entity_id: input_boolean.pretend_to_be_home
+      state: 'on'     
+    action:
+      - service: light.turn_on
+        entity_id: group.all_lights
+
+  - alias: "AWAY - Music 6 - 11pm"
+    trigger:
+      - platform: time_pattern
+        minutes: '/22'
+        seconds: '00'
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.pretend_to_be_home
+        state: 'on'
+      - condition: time
+        # At least one of the following is required.
+        after: '18:00:00'
+        before: '23:15:00'      
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.everything_3
+          volume_level: '0.7'    
+      - delay: '00:00:02'         
+      - service: media_player.play_media
+        entity_id: media_player.everything_3
+        data:
+          media_content_id: http://192.168.86.2:32400/library/parts/2/1502404207/file.mp3?download=1&X-Plex-Token=Tp1nu1xiC9YBSSq5zdfi
+          media_content_type: audio/mp3
+
+
+  - alias: AWAY - Lights 6 - 4am
+    trigger:
+      - platform: time_pattern
+     #  Matches every hour at 1 minutes past whole
+        minutes: '/27'
+        seconds: 00
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.pretend_to_be_home
+        state: 'on'
+      - condition: time
+        # At least one of the following is required.
+        after: '18:00:00'
+        before: '3:59:00'      
+    action:
+      - service_template: light.turn_on
+        entity_id: light.bedroom
+      - delay: '00:00:15'          
+      - service_template: light.turn_on
+        entity_id: light.toilet
+      - delay: '00:02:00'    
+      - service_template: light.turn_off
+        entity_id: light.toilet      
+      - delay: '00:00:15'             
+      - service_template: light.turn_on
+        entity_id: light.bathroom
+      - delay: '00:02:00'
+      - service_template: light.turn_off
+        entity_id: light.toilet
+      - delay: '00:00:30'
+      - service_template: light.turn_off
+        entity_id: light.bedroom                   
+        
+                 

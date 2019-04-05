@@ -1,0 +1,65 @@
+  # - platform: ffmpeg
+    # name: Elisha
+    # input: -rtsp_transport udp -i rtsp://192.168.86.120/unicast
+
+  # - platform: mjpeg
+    # mjpeg_url: !secret cam_dlink_video
+    # still_image_url: !secret cam_dlink_still
+    # name: Kitchen
+    # username: admin
+    # password: !secret cam_dlink_password
+
+  - platform: generic
+    name: Vacuum Map
+    still_image_url: http://192.168.86.130{{states.sensor.vacuummap.state | string }}
+    content_type: image/png
+    framerate: 1    
+    
+    # Bullet Wifi
+  # - platform: mjpeg
+    # name: Fence
+    # mjpeg_url: http://192.168.86.13/mjpg/fence/video.mjpeg
+    # username: !secret blue_iris_camera_stream_usrname
+    # password: !secret blue_iris_camera_stream_pass
+    
+    #New Tilt
+  - platform: mjpeg
+    name: Kitchen
+    mjpeg_url: http://192.168.86.13/mjpg/kitchen/video.mjpeg
+    username: !secret blue_iris_camera_stream_usrname
+    password: !secret blue_iris_camera_stream_pass
+
+    #Cube
+  - platform: mjpeg
+    name: Garage
+    mjpeg_url: http://192.168.86.13/mjpg/garage/video.mjpeg
+    username: !secret blue_iris_camera_stream_usrname
+    password: !secret blue_iris_camera_stream_pass
+
+    #Small
+  - platform: mjpeg
+    name: Lounge
+    mjpeg_url: http://192.168.86.13/mjpg/lounge/video.mjpeg
+    username: !secret blue_iris_camera_stream_usrname
+    password: !secret blue_iris_camera_stream_pass
+    
+    #New Tilt
+  - platform: mjpeg
+    name: Elisha
+    mjpeg_url: http://192.168.86.13/mjpg/elisha/video.mjpeg
+    username: !secret blue_iris_camera_stream_usrname
+    password: !secret blue_iris_camera_stream_pass
+
+    #New Bullet POE
+  - platform: mjpeg
+    name: Driveway
+    mjpeg_url: http://192.168.86.13/mjpg/drive/video.mjpeg
+    username: !secret blue_iris_camera_stream_usrname
+    password: !secret blue_iris_camera_stream_pass
+    
+  - platform: mjpeg
+    name: Backdoor
+    #New Bullet POE
+    mjpeg_url: http://192.168.86.13/mjpg/backdoor/video.mjpeg
+    username: !secret blue_iris_camera_stream_usrname
+    password: !secret blue_iris_camera_stream_pass    

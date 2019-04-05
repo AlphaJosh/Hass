@@ -1,0 +1,6 @@
+  alias: Staying Home
+  sequence:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.stay_at_home
+
+          

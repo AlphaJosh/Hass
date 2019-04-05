@@ -1,0 +1,10 @@
+  - alias: "LED Fence On"
+    trigger:
+      platform: sun
+      event: sunset
+      offset: "+00:00:00"
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.led_fence          
+          

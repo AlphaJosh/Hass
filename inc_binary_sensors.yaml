@@ -1,0 +1,156 @@
+  - platform: command_line
+    name: Internet Connection
+    command: "/config/bash-scripts/wan_test.sh"
+    device_class: connectivity
+    payload_on: "Up"
+    payload_off: "Down"
+
+  - platform: mqtt
+    name: "sonoff-fence-light1 lwt"
+    state_topic: "tele/sonoff-fence-light1/LWT"
+    value_template: "{{ value }}"
+    payload_on: "Online"
+    payload_off: "Offline"
+    device_class: connectivity
+
+  - platform: mqtt
+    name: "sonoff-tv lwt"
+    state_topic: "tele/sonoff-tv/LWT"
+    value_template: "{{ value }}"
+    payload_on: "Online"
+    payload_off: "Offline"
+    device_class: connectivity
+
+  - platform: mqtt
+    name: Front Motion
+    payload_on: "E363FE"
+    payload_off: "E363FE_off"
+    device_class: opening
+    state_topic: "tele/RFGateway/RESULT"
+    value_template: '{{ value_json.RfReceived.Data }}'    
+    
+  - platform: mqtt
+    name: Front Gate
+    payload_off: "B305E7"
+    payload_on: "B305EE"
+    device_class: opening
+    state_topic: "tele/RFGateway/RESULT"
+    value_template: '{{ value_json.RfReceived.Data }}'      
+
+  - platform: mqtt
+    name: Front Gate Tamper
+    payload_on: "B305EB"
+    payload_off: "B305EB_off"
+    device_class: opening
+    state_topic: "tele/RFGateway/RESULT"
+    value_template: '{{ value_json.RfReceived.Data }}'  
+
+  - platform: mqtt
+    name: dashboard_motion
+    state_topic: any/value
+
+  - platform: ping
+    host: 192.168.86.1
+    name: Router    
+  - platform: ping
+    host: 192.168.86.22
+    name: Wifi
+  - platform: ping
+    name: Garage
+    host: 192.168.86.29
+  - platform: ping
+    host: 8.8.8.8
+    name: Google
+    
+  # - platform: template
+    # sensors:
+    # motion_hall:
+      # friendly_name: "Motion Hall"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}    
+    # motion_bathroom:
+      # friendly_name: "Motion Bathroom"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}               
+    # motion_kitchen:
+      # friendly_name: "Motion Kitchen"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}        
+    # motion_backdoor:
+      # friendly_name: "Motion backdoor"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}        
+    # motion_garage:
+      # friendly_name: "Motion Garage"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}        
+
+    # door_garage:
+      # friendly_name: "Door Garage"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}        
+    # door_front:
+      # friendly_name: "Door Front"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}        
+    # door_back:
+      # friendly_name: "Door Back"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}        
+    # door_lounge:
+      # friendly_name: "Door Lounge"
+      # value_template: {{ states.binary_sensor.motion_sensor_158d00010f3c52 }}          
+
+
+    # - platform: 'bayesian'
+      # prior: 0.75
+      # name: 'Josh Home'
+      # probability_threshold: 0.95
+      # observations:
+        # - entity_id: 'device_tracker.pi_joshphone'
+          # prob_given_true: 0.8
+          # prob_given_false: 0.2
+          # platform: 'state'
+          # to_state: 'home'
+        # - entity_id: 'device_tracker.joshappiphone'
+          # prob_given_true: 0.99
+          # prob_given_false: 0.10
+          # platform: 'state'
+          # to_state: 'home'
+        # - entity_id: 'device_tracker.joshsiphone'
+          # prob_given_true: 0.99
+          # prob_given_false: 0.4
+          # platform: 'state'
+          # to_state: 'home'
+        # - entity_id: 'device_tracker.sonu_sonu'
+          # prob_given_true: 1
+          # platform: 'state'
+          # to_state: 'home'
+        # - entity_id: 'device_tracker.e1594e5321df414c82daf655d5282fca'
+          # prob_given_true: 0.99
+          # prob_given_false: 0.1
+          # platform: 'state'
+          # to_state: 'home'
+    # - platform: 'bayesian'
+      # prior: 0.25
+      # name: 'Kay Home'
+      # probability_threshold: 0.95
+      # observations:
+        # - entity_id: 'device_tracker.pi_kayphone'
+          # prob_given_true: 0.8
+          # prob_given_false: 0.2
+          # platform: 'state'
+          # to_state: 'home'
+        # - entity_id: 'device_tracker.kayiosiphone'
+          # prob_given_true: 0.99
+          # prob_given_false: 0.10
+          # platform: 'state'
+          # to_state: 'home'
+        # - entity_id: 'device_tracker.myiphone'
+          # prob_given_true: 0.99
+          # prob_given_false: 0.4
+          # platform: 'state'
+          # to_state: 'home'
+        # - entity_id: 'device_tracker.kay_kay'
+          # prob_given_true: 0.99
+          # prob_given_false: 0.1
+          # platform: 'state'
+          # to_state: 'home'
+        # - entity_id: 'device_tracker.b4445761f6c04b7f835fcfdc03b47111'
+          # prob_given_true: 0.99
+          # prob_given_false: 0.1
+          # platform: 'state'
+          # to_state: 'home'  
+            

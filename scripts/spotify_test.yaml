@@ -1,0 +1,25 @@
+  alias: Spotify Test
+  sequence:     
+    # - service: media_player.volume_set
+      # data:
+        # entity_id: media_player.spotify
+        # volume_level: 0.5
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify
+        source: Kitchen
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.spotify
+        media_content_id: spotify:user:spotify:playlist:37i9dQZF1DXa1rZf8gLhyz
+        media_content_type: playlist
+      # data_template:
+    # - service: media_player.shuffle_set
+      # data:
+        # entity_id: media_player.spotify
+        # shuffle: 'true'
+    # - service: media_player.media_next_track
+      # data:
+        # entity_id: media_player.spotify
+
+  #{'Josh's iPhone6S': '85592ccc426530cb63f0c268f3bd925f32fbd69d'}

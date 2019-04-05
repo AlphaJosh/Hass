@@ -1,0 +1,5 @@
+  alias: TVOff
+  sequence:
+    - service: switch.turn_off
+      entity_id: switch.sonoff_tv_power
+          

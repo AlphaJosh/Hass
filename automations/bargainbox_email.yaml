@@ -1,0 +1,22 @@
+  - alias: EMAIL - Recipe SoftCopy
+    trigger:
+      platform: time
+      at: '16:00:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: time    
+        weekday:
+        - fri
+    action:
+    - service: notify.email_bargainbox
+      data:
+        title: 'Recipe Soft Copy'
+        message: |
+          Hello Gen, 
+           Could you please email me this weeks soft-copy of the recipe cards please? 
+           
+           Regards,
+           Joshua Nathan
+           027 358 9003
+           61 Stanton Cres, Hoon Hay

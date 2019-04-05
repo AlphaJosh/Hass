@@ -1,0 +1,28 @@
+alias: spotify jazz
+sequence:
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.google_command
+      value: 'play jazz for sleep playlist on spotify on kitchen'
+  - service: notify.google_assistant_command
+    data_template:
+      message: '{{ states.input_text.google_command.state }}'
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.google_command
+      value: '' 
+      
+      
+play jazz for sleep playlist on spotify on kitchen
+
+http://192.168.86.2:5000/states
+
+http://192.168.86.2:5000/command?message=play%20jazz%20for%20sleep%20playlist%20on%20spotify%20on%20kitchen
+http://192.168.86.2:5000/command?message=turn%20on%20do%20not%20disturb%20on%20kitchen
+http://192.168.86.2:5000/command?message=turn%20on%20DND%20on%20kitchen
+http://192.168.86.2:5000/command?message=How%20many%20days%20until%20christmas
+http://192.168.86.2:5000/command?message=Pause%20TV%20in%20Lounge
+http://192.168.86.2:5000/command?message=Sync%20my%20devices
+http://192.168.86.2:5000/command?message=Turn%20off%20christmas%20tree
+sturn%20on%20do%20not%20distrub%20on%20kitchen
+

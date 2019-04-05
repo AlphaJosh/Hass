@@ -1,0 +1,7 @@
+  - platform: command_line
+    name: LocalIP
+    command: "ip route get 8.8.8.8 | head -1 | awk '{print $7}'"
+    scan_interval: 7200   
+        
+    
+  

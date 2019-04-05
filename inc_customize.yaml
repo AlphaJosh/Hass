@@ -1,0 +1,176 @@
+  # alarm_armed_away:
+    # friendly_name: '[Alarm] Away Mode Armed'
+  # alarm_armed_home:
+    # friendly_name: '[Alarm] Home Mode Armed'
+  # alarm_arming_away:
+    # friendly_name: '[Alarm] Away Mode Arming'
+  # alarm_disarmed:
+    # friendly_name: '[Alarm] Disarmed'
+  # alarm_triggered:
+    # friendly_name: '[Alarm] Triggered'
+  # alarm_warning:
+    # friendly_name: '[Alarm] Warning'
+    
+  device_tracker.joshsiphone6s:
+    friendly_name: Josh's iPhone
+
+  device_tracker.kaysiphone6s:  
+    friendly_name: Kay's iPhone
+  
+  device_tracker.christine_siphone:
+    friendly_name: Mum's iPhone
+
+    cover.garage_door:
+    device_class: garage
+
+  switch.garage_door:
+    friendly_name: Garage Door
+    device_class: garage
+
+  
+  binary_sensor.motion_sensor_158d000112aaae:
+    friendly_name: Kitchen Motion
+    
+#  binary_sensor.door_window_sensor_158d000112fb09:
+#    friendly_name: Front Door Sensor
+#    device_class: door
+    
+  binary_sensor.door_window_sensor_158d000112fb09:
+    friendly_name: Garage Door
+    device_class: door
+    
+#  binary_sensor.door_window_sensor_158d00012d8be2:
+#    friendly_name: Missing Door
+#    device_class: door
+
+    
+    
+  binary_sensor.motion_sensor_158d0001108751:
+    friendly_name: Toilet Motion
+    device_class: motion
+       
+  binary_sensor.motion_sensor_158d00011c0414:
+    friendly_name: Garage Motion
+    device_class: motion
+    
+  binary_sensor.motion_sensor_158d00010f3c52:
+    friendly_name: Bathroom Motion1
+    device_class: motion
+
+  binary_sensor.door_window_sensor_158d0001596697:
+    friendly_name: Front Door
+    device_class: door
+
+  binary_sensor.door_window_sensor_158d00014de9c1:
+    friendly_name: Back Door
+    device_class: door
+    
+  binary_sensor.door_window_sensor_158d000110d4fe:
+    friendly_name: Lounge Door
+    device_class: door    
+
+  binary_sensor.door_window_sensor_158d0002913444:
+    friendly_name: Toilet Seat
+    
+  binary_sensor.door_window_sensor_158d000112fb09:
+    friendly_name: Lounge Lock
+
+    
+  binary_sensor.motion_sensor_158d00010d0d3b: 
+    friendly_name: Bathroom Motion2
+    device_class: motion
+  
+  sensor.Temperature_158d000156a9c6: 
+    friendly_name: Lounge Temperature
+ 
+  sensor.temperature_158d00010fc34d: 
+    friendly_name: Outside Temperature
+    
+  sensor.temperature_158d00012ba326: 
+    friendly_name: Bedroom Temperature     
+
+  sensor.elisha_temp_temperature: 
+    friendly_name: Elisha Temperature
+
+
+  sensor.dark_sky_hourly_summary: 
+    friendly_name: Weather Outlook
+  sensor.dark_sky_apparent_temperature: 
+    friendly_name: Weather Current Temperature
+  sensor.dark_sky_daily_high_temperature: 
+    friendly_name: Weather High
+  sensor.dark_sky_daily_low_temperature: 
+    friendly_name: Weather Low
+
+
+  light.yeelight_white_f0b429a8d92b:
+    friendly_name: Laundry
+        
+  light.gateway_light_f0b429cc6a07:
+    friendly_name: Xiaomi Gateway
+
+  light.gateway_light_7c49eb1a791d:
+    friendly_name: Xiaomi Kitchen Gateway
+    
+  light.hall:
+    friendly_name: Office
+
+  media_player.chromecast5246:
+    friendly_name: TV
+    
+  media_player.googlehome1208:    
+    friendly_name: Elisha
+    
+  media_player.googlehome3265:
+    friendly_name: Lounge
+    
+  media_player.everything_3:
+    friendly_name: Everything
+    
+  media_player.bedroom_2:
+    friendly_name: Bedroom
+    
+  media_player.chromecastaudio0648:
+    friendly_name: Office
+    
+  input_boolean.weather:
+    custom_ui_state_card: custom-weather-card
+    config:
+      weather: weather.yweather
+      sun: sun.sun
+    
+#  switch.heatpump:
+#    emulated_hue_name: "heatpump"    
+#  switch.tv:
+#    emulated_hue_name: "tv power"          
+#
+#  switch.lounge:
+#    emulated_hue: false    
+#
+#  light.lounge1:
+#    emulated_hue: false
+#  light.lounge2:
+#    emulated_hue: false
+#  light.lounge3:
+#    emulated_hue: false
+
+  group.all_automations:
+    hidden: false
+
+  group.all_scripts:
+    hidden: false
+    
+  input_boolean.disable_daily_vacuum:
+    icon: mdi:stop-circle-outline
+  input_boolean.disable_dustbin_notification:
+    icon: mdi:delete-empty
+  binary_sensor.vacuum_room:
+    custom_ui_state_card: state-card-floorplan
+    config: !include /config/inc_floorplan_vacuum.yaml
+    
+  sensor.external_ip:
+    friendly_name: External IP Address
+    
+    
+  sensor.elisha_temp_temperature:
+    friendly_name: Elisha Temperature

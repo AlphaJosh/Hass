@@ -1,0 +1,54 @@
+      
+  - alias: "PWR - TV on 7am"
+    trigger:
+      platform: time
+      at: '07:00:00'
+    action:
+    - service: switch.turn_on
+      entity_id: switch.tv_power           
+
+
+  - alias: "PWR - off 8:30am"
+    trigger:
+      platform: time
+      at: '08:30:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri      
+    action:
+    - service: switch.turn_off
+      entity_id: group.loungepower
+      
+      
+  - alias: "PWR - Lounge on 3:30pm"
+    trigger:
+      platform: time
+      at: '15:30:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'  
+      - condition: time    
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri      
+    action:
+    - service: switch.turn_on
+      entity_id: group.loungepower     
+
+        

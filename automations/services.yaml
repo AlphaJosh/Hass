@@ -1,0 +1,94 @@
+  - alias: "HA Startup"
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.stay_at_home
+        state: 'off'
+      - condition: time
+        after: '6:01:00'
+        before: '5:59:00'
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen
+          volume_level: '0.6'    
+      - service: tts.google_say
+        data_template:
+          entity_id: media_player.kitchen
+          message: >
+            Home Automation restarted
+        
+#  - alias: Backup HA
+#    trigger:
+#      platform: time
+#      at: '06:01:00'  
+#    action: 
+#      - service: shell_command.backup
+###############################################################################
+
+  # - alias: HA Restart Morning
+    # trigger:
+      # platform: time
+      # at: '06:00:00'
+    # action: 
+    # - service: homeassistant.restart
+
+  - alias: Holiday Calendar
+    trigger:
+      platform: time
+      at: '00:01:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: calendar.holidays_in_new_zealand
+        state: 'on'
+    action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.stay_at_home
+  
+  - alias: Away Pretend to Be Home
+    trigger:
+      platform: time
+      at: '00:01:00'
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: calendar.PretendAway
+        state: 'on'
+    action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.pretend_to_be_home  
+
+  - alias: purge db
+    trigger:
+    - at: 03:00:00
+      platform: time
+    condition: []
+    action:
+    - service: recorder.purge         
+      data:
+        keep_days: '8'
+      
+  - alias: FLAGS - Reset Flags
+    trigger:
+      platform: time
+      at: '00:00:58'
+    action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: group.input_bool
+
+  - alias: FLAGS - Reset Lunches Made
+    trigger:
+      platform: time
+      at: '00:10:00'
+    action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.lunches_made

@@ -1,0 +1,74 @@
+- alias: Prox - Close Garage Door
+  trigger:
+    - platform: zone
+      entity_id: 
+        - group.josh
+      zone: zone.home
+      event: leave
+  #backup closing state/returning home
+    - platform: state
+      entity_id: group.josh
+      from: 'home'
+      to: 'not_home'
+      for:    
+        minutes: 5
+  #final backup      
+    # - platform: state
+      # entity_id: cover.garage
+      # from: 'closed'
+      # to: 'open'
+      # for:
+        # hours: 2
+  #coming home
+    # - platform: zone
+      # entity_id: device_tracker.iphone6splus
+      # zone: zone.home
+      # event: enter
+      # for:
+        # minutes: 10
+  condition:
+    condition: state
+    entity_id: cover.garage_door
+    state: 'open'
+  action:
+    service: cover.close_cover
+    data:
+      entity_id: cover.garage_door
+      
+      
+- alias: Prox - Open Garage Door
+  trigger:
+    - platform: zone
+      entity_id: 
+        - group.josh
+      zone: zone.home
+      event: enter
+  #backup closing state/returning home
+    - platform: state
+      entity_id: group.josh
+      from: 'not_home'
+      to: 'home'
+      for:    
+        minutes: 5
+  #final backup      
+    - platform: state
+      entity_id: cover.garage
+      from: 'open'
+      to: 'closed'
+      for:
+        hours: 2
+  #coming home
+    # - platform: zone
+      # entity_id: device_tracker.iphone6splus
+      # zone: zone.home
+      # event: enter
+      # for:
+        # minutes: 10
+  condition:
+    condition: state
+    entity_id: cover.garage_door
+    state: 'open'
+  action:
+    service: cover.open_cover
+    data:
+      entity_id: cover.garage_door    

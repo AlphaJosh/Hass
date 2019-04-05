@@ -1,0 +1,112 @@
+###################################################################
+#   Evening Rituals
+
+  - alias: auto1 - Turn on Porch at dusk
+    trigger:
+      platform: sun
+      event: sunset
+      offset: "-00:45:00"
+    action:
+    - service: light.turn_on
+      entity_id: light.porch
+      data:
+        brightness: 255
+        transition: 2 
+        color_name: white
+          
+  - alias: auto2 - Turn On Hall at dusk
+    trigger:
+      platform: sun
+      event: sunset
+      offset: "-00:45:00"
+    action:
+    - service: light.turn_on
+      entity_id: light.hall1
+      data:
+        brightness: 250
+        transition: 2
+    - service: light.turn_on
+      entity_id: light.hall2
+      data:
+        brightness: 250
+        transition: 2
+    - service: light.turn_off
+      entity_id: light.hall2
+    - service: light.turn_on
+      entity_id: light.hall2
+      data:
+        brightness: 250
+        transition: 2
+    - service: light.turn_off
+      entity_id: light.hall2
+    - service: light.turn_on
+      entity_id: light.hall2
+      data:
+        brightness: 250
+        transition: 2
+        
+  - alias: "Turn off external lights at 1am"
+    trigger:
+    - platform: time
+      at: '1:00'
+    action:
+    - service: light.turn_off
+      entity_id: light.porch
+    - service: switch.turn_off
+      entity_id: switch.led_fence
+
+
+
+  - alias: auto2 - Turn On Elisha's room at dusk
+    trigger:
+      platform: sun
+      event: sunset
+      offset: "-00:45:00"
+    condition:    
+      - condition: time
+        after: '16:00:00'
+        before: '19:10:00'      
+    action:
+      - service: light.turn_on
+        entity_id: light.elisha
+        data:
+          brightness: 255
+          transition: 2 
+          color_name: white
+#      - service: light.turn_on
+#        entity_id: light.lounge
+#        data:
+#          brightness: 255
+#          transition: 10        
+
+#  - alias: auto4 - Turn off Hall light at 6am if light enough
+#    trigger:
+#      platform: time
+#      at: '06:00:00'
+#    action:
+#      service: light.turn_off
+#      entity_id: light.hall
+
+  - alias: auto2 - Turn down Hall at 7pm
+    trigger:
+      platform: time
+      at: '19:05:00'
+    action:
+    - service: light.turn_on
+      entity_id: light.hall1
+      data:
+        brightness: 200
+        transition: 18       
+    - service: light.turn_on
+      entity_id: light.hall2
+      data:
+        brightness: 200
+        transition: 18    
+
+  - alias: Elisha - Turn off music at 10pm
+    trigger:
+      platform: time
+      at: '22:00:00'
+    action:
+      - service: media_player.media_stop
+        entity_id: media_player.elisha         

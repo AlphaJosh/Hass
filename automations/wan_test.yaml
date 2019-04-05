@@ -1,0 +1,8 @@
+  - alias: 'Internet Connection Back Up DNS Update'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.internet_connection
+        to: 'off'
+        from: 'on'
+    action:
+      - service: shell_command.dnsupdate

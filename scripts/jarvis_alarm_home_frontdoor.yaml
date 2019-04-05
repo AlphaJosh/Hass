@@ -1,0 +1,20 @@
+  alias: Jarvis Alarm Home FrontDoor
+  sequence:
+    - service: shell_command.bedroom_vol4
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.bedroom_2
+        message: >
+          Excuse me, Front door has been opened
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.house
+    - service: shell_command.kitchen_vol9
+    - delay: '00:00:15' 
+    - service: light.turn_on
+      entity_id: light.gateway_light_f0b429cc6a07
+      data: 
+        rgb_color: [255, 0, 0] 
+        flash: short
+    - service: shell_command.whatsapp 
+      data_template:
+        text: '{{"Front door has been opened"}}'

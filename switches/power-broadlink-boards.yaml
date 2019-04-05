@@ -1,0 +1,39 @@
+
+  - platform: broadlink
+    host: 192.168.86.93
+    mac: '34:ea:34:d0:f2:01'
+    type: mp1
+    friendly_name: 'Power-BedKay'
+    slots:
+      # friendly name of slots - optional
+      # if not set, slot name will be switch's friendly_name + 'slot {slot_index}'. e.g 'MP1 slot 1'
+      slot_1: 'Kay Blanket'
+      slot_2: 'kay spare1'
+      slot_3: 'kay spare2'
+      slot_4: 'kay phone'
+
+  - platform: broadlink
+    host: 192.168.86.94
+    mac: '34:ea:34:85:4b:00'     
+    type: mp1
+    friendly_name: 'Power-BedJosh'
+    slots:
+      # friendly name of slots - optional
+      # if not set, slot name will be switch's friendly_name + 'slot {slot_index}'. e.g 'MP1 slot 1'
+      slot_1: 'Josh Blanket'
+      slot_2: 'josh ghome'
+      slot_3: 'josh spare1'
+      slot_4: 'josh phone'
+      
+  - platform: broadlink
+    host: 192.168.86.95
+    mac: '34:ea:34:d0:ea:8b'
+    type: mp1
+    friendly_name: 'Power-Lounge'
+    slots:
+      # friendly name of slots - optional
+      # if not set, slot name will be switch's friendly_name + 'slot {slot_index}'. e.g 'MP1 slot 1'
+      slot_1: 'lounge-pi'
+      slot_2: 'lounge-dvd'
+      slot_3: 'lounge-ps3'
+      slot_4: 'lounge-other'

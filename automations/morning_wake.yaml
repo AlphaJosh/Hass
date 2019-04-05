@@ -1,0 +1,25 @@
+########################################################################################          
+  - alias: up after wakeup alarm
+    trigger:
+      platform: time
+      at: '4:30:00'
+    action:        
+    - service: switch.turn_off
+      entity_id: switch.tv_power    
+    - service: light.turn_on
+      entity_id: 
+        - light.dining1
+        - light.dining2
+        - light.dining3
+      data:
+        brightness: 255
+        transition: 18
+    - service: shell_command.mornwake
+    - service: shell_command.cast
+      data:
+        cmd: 'https://www.youtube.com/watch?v=Xk24DMOInnQ'
+    - delay: '00:1:00'
+    - service: media_player.media_pause
+      entity_id: media_player.tv_2
+    
+        

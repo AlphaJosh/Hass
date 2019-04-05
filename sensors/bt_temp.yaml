@@ -1,0 +1,9 @@
+  - platform: mitemp_bt
+    name: Elisha Temp
+    mac: '4C:65:A8:D9:73:8A'
+    force_update: false
+    median: 3
+    monitored_conditions:
+      - temperature
+      - humidity
+      - battery

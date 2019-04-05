@@ -1,0 +1,28 @@
+  alias: alarm arm away daymode
+  sequence:
+    - service: input_select.select_option
+      entity_id: input_select.alarm_status
+      option: "Armed Away (Day)"  
+    - service: light.turn_on
+      entity_id: light.gateway_light_7c49eb1a791d
+      data: 
+        brightness: 255    
+        rgb_color: [0,0,255]
+    - service: media_player.turn_off
+      entity_id: media_player.everything
+    - service: switch.turn_off
+      entity_id: 
+        - group.LoungePower
+        - switch.heatpump   
+    - service: light.turn_off
+      entity_id: group.all_lights
+    - service: switch.turn_on
+      entity_id: 
+        - switch.camera_motion_elisha
+        - switch.camera_motion_kitchen
+        - switch.camera_motion_lounge
+    - service: cover.close_cover
+      entity_id: cover.garage_door              
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.house
+
